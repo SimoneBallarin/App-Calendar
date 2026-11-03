@@ -18,6 +18,8 @@ Non ha un server proprio: è un unico `index.html` (HTML, CSS e JavaScript, senz
 - **Accesso Google e sincronizzazione** tra telefono e PC.
 - **Funziona offline**, si installa come app e avvisa quando c’è una versione nuova.
 - **Backup** in JSON, con o senza allegati.
+- **Profilo** in cima al menu laterale: nome, data e luogo di nascita, residenza, lavoro, luoghi di interesse e altri dati rilevanti.
+- **Impostazioni** in fondo al menu: tema (automatico, chiaro, scuro o due colori a scelta), lingua (italiano e inglese), festività di uno o più paesi, importazione ed esportazione dei dati.
 
 ## Inserimento rapido
 
@@ -121,6 +123,8 @@ I dati non si perdono negli aggiornamenti. Prima di modifiche importanti convien
 - La configurazione web di Firebase (`apiKey` e simili) non è un segreto: è pensata per stare nel codice. La protezione dei dati è nelle regole di `firestore.rules`, per cui ogni account legge e scrive solo la propria area.
 - Quando usi il coach, obiettivi, statistiche e (se spuntato) allegati vengono inviati a Google.
 - La chiave Gemini non viene mai sincronizzata né esportata.
+- Il profilo si sincronizza con gli altri dati. Al coach Gemini arrivano solo età, residenza, lavoro, luoghi di interesse e note, e solo se lasci attiva la casella nel profilo.
+- Le festività vengono scaricate dal servizio pubblico gratuito [date.nager.at](https://date.nager.at) e salvate sul dispositivo.
 
 ## Limiti noti
 
@@ -128,6 +132,8 @@ I dati non si perdono negli aggiornamenti. Prima di modifiche importanti convien
 - Due modifiche simultanee alla stessa voce su dispositivi diversi: vince l’ultima.
 - Il dettato vocale non è disponibile su Firefox.
 - L’installazione non è stata provata su iOS.
+- La traduzione inglese copre l’interfaccia; i messaggi di conferma del browser restano in italiano. Le scorciatoie di inserimento rapido (`/g`, `/s`, `/m`, `/p`) non cambiano con la lingua.
+- Le festività importate sono quelle nazionali; quelle regionali o locali non vengono mostrate.
 
 ## Sviluppo in locale
 

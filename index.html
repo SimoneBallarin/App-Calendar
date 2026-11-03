@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Obiettivi</title><script src=firebase-config.js></script><link rel=manifest href=manifest.json><link rel=icon href=icon-192.png><link rel=apple-touch-icon href=icon-192.png><meta name=theme-color content="#f5f6f8" media="(prefers-color-scheme: light)"><meta name=theme-color content="#0e1116" media="(prefers-color-scheme: dark)">
+<script>
+function applyTheme(t){const h=document.documentElement,s=h.style,mt=document.querySelectorAll('meta[name=theme-color]');s.cssText='';t=t||{m:'auto'};
+ const hx=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16)),mx=(a,b,p)=>{a=hx(a);b=hx(b);return'#'+a.map((v,i)=>('0'+Math.round(v+(b[i]-v)*p).toString(16)).slice(-2)).join('')},
+ lm=c=>{const r=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*r[0]+.7152*r[1]+.0722*r[2]};
+ let V=null,k='';
+ if(t.m=='light'){k='light';V={'--bg':'#f5f6f8','--sb':'#eceff3','--cd':'#ffffff','--tx':'#1b2230','--mu':'#667085','--ln':'#e6e9ef','--ln2':'#d2d7e0','--ac':'#0f766e','--acf':'#ffffff','--ok':'#16a05d','--wa':'#b86e00','--er':'#d6403a'}}
+ else if(t.m=='dark'){k='dark';V={'--bg':'#0e1116','--sb':'#12161c','--cd':'#171b22','--tx':'#e7eaf0','--mu':'#8c95a6','--ln':'#242a34','--ln2':'#333b48','--ac':'#2dd4bf','--acf':'#04201c','--ok':'#3ccf82','--wa':'#f0b13a','--er':'#ff6b63'}}
+ else if(t.m=='custom'&&/^#[0-9a-f]{6}$/i.test(t.bg||'')&&/^#[0-9a-f]{6}$/i.test(t.ac||'')){const dk=lm(t.bg)<.4,tx=dk?'#e7eaf0':'#1b2230';k=dk?'dark':'light';
+  V={'--bg':t.bg,'--sb':mx(t.bg,tx,.05),'--cd':dk?mx(t.bg,'#ffffff',.06):mx(t.bg,'#ffffff',.65),'--tx':tx,'--mu':mx(tx,t.bg,.42),'--ln':mx(t.bg,tx,.12),'--ln2':mx(t.bg,tx,.22),'--ac':t.ac,'--acf':lm(t.ac)>.4?'#101418':'#ffffff','--ok':dk?'#3ccf82':'#16a05d','--wa':dk?'#f0b13a':'#b86e00','--er':dk?'#ff6b63':'#d6403a'}}
+ if(V){for(const n in V)s.setProperty(n,V[n]);s.colorScheme=k;mt.forEach(m=>m.content=V['--bg'])}
+ else{if(mt[0])mt[0].content='#f5f6f8';if(mt[1])mt[1].content='#0e1116'}}
+try{applyTheme((JSON.parse(localStorage.getItem('dash_obiettivi_v1'))||{}).th)}catch(e){}
+</script>
 <style>
-:root{color-scheme:light dark;--bg:#f5f6f8;--sb:#eceff3;--cd:#fff;--tx:#1b2230;--mu:#667085;--ln:#e6e9ef;--ln2:#d2d7e0;--ac:#0f766e;--ok:#16a05d;--wa:#b86e00;--er:#d6403a}
-@media(prefers-color-scheme:dark){:root{--bg:#0e1116;--sb:#12161c;--cd:#171b22;--tx:#e7eaf0;--mu:#8c95a6;--ln:#242a34;--ln2:#333b48;--ac:#2dd4bf;--ok:#3ccf82;--wa:#f0b13a;--er:#ff6b63}}
+:root{color-scheme:light dark;--bg:#f5f6f8;--sb:#eceff3;--cd:#fff;--tx:#1b2230;--mu:#667085;--ln:#e6e9ef;--ln2:#d2d7e0;--ac:#0f766e;--acf:#fff;--ok:#16a05d;--wa:#b86e00;--er:#d6403a}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1116;--sb:#12161c;--cd:#171b22;--tx:#e7eaf0;--mu:#8c95a6;--ln:#242a34;--ln2:#333b48;--ac:#2dd4bf;--acf:#04201c;--ok:#3ccf82;--wa:#f0b13a;--er:#ff6b63}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI Variable","Segoe UI",Roboto,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 .lay{display:flex;min-height:100vh}
-nav{flex:none;width:236px;background:var(--sb);border-right:1px solid var(--ln);padding:20px 12px;position:sticky;top:0;height:100vh;overflow:auto}
+nav{display:flex;flex-direction:column;flex:none;width:236px;background:var(--sb);border-right:1px solid var(--ln);padding:20px 12px;position:sticky;top:0;height:100vh;overflow:auto}
 .brand{font-weight:700;font-size:17px;letter-spacing:-.01em;padding:0 10px 8px}
 .sh{font-size:12.5px;font-weight:600;color:var(--mu);padding:16px 10px 6px}.sh:has(+ :empty){display:none}
 nav .chips button,#yn button{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:none;padding:6px 10px;margin:0;border-radius:8px;color:var(--tx);font-size:14px}
@@ -23,8 +36,8 @@ h2{font-size:15px;font-weight:650;margin:0 0 10px;letter-spacing:-.01em}h3{margi
 button,input,select,textarea{font:inherit;color:inherit;background:var(--cd);border:1px solid var(--ln2);border-radius:10px;padding:7px 12px;transition:background .15s,border-color .15s,box-shadow .15s}
 button{cursor:pointer}button:hover{background:color-mix(in srgb,var(--tx) 5%,var(--cd))}
 input:focus,select:focus,textarea:focus,button:focus-visible{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
-.pr{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}.pr:hover{background:color-mix(in srgb,var(--ac) 88%,#000)}
-@media(prefers-color-scheme:dark){.pr{color:#04201c}}
+.pr{background:var(--ac);color:var(--acf);border-color:var(--ac);font-weight:600}.pr:hover{background:color-mix(in srgb,var(--ac) 88%,#000)}
+
 .hb button:not(.pr){border-color:transparent;background:none;color:var(--mu)}.hb button:not(.pr):hover{background:color-mix(in srgb,var(--tx) 7%,transparent);color:var(--tx)}
 #bG{color:var(--ac)!important;font-weight:600}
 .tb{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:10px;margin-bottom:16px}
@@ -51,11 +64,11 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:0;border-co
 .ch.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}.ch.wa{background:color-mix(in srgb,var(--wa) 16%,transparent);color:var(--wa)}.ch.er{background:color-mix(in srgb,var(--er) 14%,transparent);color:var(--er)}
 .cmp .rw .ch,.cmp .rw .mu{display:none}.cmp .rw{padding:7px 2px;align-items:center}
 .hm{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.hm i{aspect-ratio:1;border-radius:6px;background:var(--ac)}
-.chips button{margin:0 4px 4px 0;padding:3px 10px;border-radius:99px;font-size:13px}.chips .on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.chips button{margin:0 4px 4px 0;padding:3px 10px;border-radius:99px;font-size:13px}.chips .on{background:var(--ac);color:var(--acf);border-color:var(--ac)}
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cg b{font-size:12px;font-weight:600;color:var(--mu);padding:4px 0}
 .cg button{aspect-ratio:1.2;padding:2px;position:relative;font-size:13.5px;border:0;background:none;border-radius:10px;font-variant-numeric:tabular-nums}
 .cg button:hover{background:color-mix(in srgb,var(--tx) 7%,transparent)}
-.cg button.td{background:var(--ac);color:#fff;font-weight:700}.cg button.sel{box-shadow:inset 0 0 0 2px var(--ac)}.cg button.td.sel{box-shadow:0 0 0 2px var(--cd),0 0 0 4px var(--ac)}
+.cg button.td{background:var(--ac);color:var(--acf);font-weight:700}.cg button.sel{box-shadow:inset 0 0 0 2px var(--ac)}.cg button.td.sel{box-shadow:0 0 0 2px var(--cd),0 0 0 4px var(--ac)}
 .cg span{display:flex;gap:3px;justify-content:center;position:absolute;bottom:4px;left:0;right:0}.cg u{width:5px;height:5px;border-radius:50%;box-shadow:0 0 0 1px var(--cd)}
 .mn{display:flex;gap:4px;margin:10px 0;overflow-x:auto}.mn button{flex:none;margin:0;padding:3px 10px;font-size:12.5px;border-radius:99px;border-color:transparent;background:none;color:var(--mu)}.mn .on{background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);font-weight:600;border-color:transparent}
 a{color:var(--ac)}summary{cursor:pointer;font-weight:600;font-size:13px}
@@ -70,12 +83,19 @@ dialog label{display:block;font-size:12.5px;font-weight:600;color:var(--mu);marg
 nav .chips,#yn{display:flex;gap:6px;overflow-x:auto}nav .chips button,#yn button{flex:none;width:auto;border:1px solid var(--ln2)}
 .brand{padding-bottom:4px}main{padding:18px 14px 96px}.tb{grid-template-columns:1fr}h1{font-size:28px}
 #bN{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:5;width:56px;height:56px;padding:0;border-radius:50%;font-size:0;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}#bN::after{content:"+";font-size:30px;line-height:1}}
+.me{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:10px;margin:0 0 6px;color:var(--tx)}.me:hover{background:color-mix(in srgb,var(--tx) 6%,transparent)}
+.av{flex:none;position:relative;width:36px;height:36px;border-radius:50%;background:var(--ac);color:var(--acf);display:grid;place-items:center;font-weight:700;font-size:14px;overflow:hidden}.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.me b{display:block;font-size:14px;line-height:1.25;overflow-wrap:anywhere}.me .mu{font-size:12px}.nf{margin-top:auto;padding-top:16px}
+.tabs{display:flex;gap:4px;margin:10px 0 14px;overflow-x:auto}.tabs button{flex:none;border:0;background:none;padding:6px 12px;border-radius:99px;color:var(--mu)}.tabs .on{background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);font-weight:600}
+.sw{display:inline-flex;width:56px;height:28px;border-radius:99px;overflow:hidden;border:1px solid var(--ln2);padding:0;margin:0 6px 6px 0}.sw i{flex:1}
+.cl{max-height:230px;overflow:auto;border:1px solid var(--ln2);border-radius:10px;padding:4px 10px;margin-top:6px}.cl label{display:flex;gap:8px;align-items:center;margin:0;padding:5px 0;font-weight:400;color:var(--tx);font-size:14px}.cl input{width:auto;margin:0}
+.cg button.fe{color:var(--er)}.cg button.td.fe{color:var(--acf)}
 #upd{position:fixed;z-index:20;left:50%;bottom:20px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;max-width:92vw;padding:10px 12px 10px 16px;border-radius:14px;background:var(--tx);color:var(--bg);box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:14px;font-weight:500}
 #upd[hidden]{display:none}#upd button{padding:5px 12px;border-radius:9px;font-size:13px}#upd .ib{background:none;color:inherit;opacity:.7;padding:4px 8px}
 @media(max-width:860px){#upd{bottom:calc(92px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body><div class=lay><nav><div class=brand>🎯 Obiettivi</div><div class=sh>Progetti</div><div class=chips id=ch></div><div class=sh>Parole chiave</div><div class=chips id=ct></div><div class=sh>Anni</div><div id=yn></div><div class=mu id=ver style="padding:18px 10px 0"></div></nav><main>
-<header><h1>Oggi<span id=d0></span></h1><div class=hb><button id=bS>☁ Accedi</button> <button id=bA hidden>⬇ Installa app</button> <button id=bV></button> <button id=bG>✨ Coach Gemini</button> <button id=bR>Revisione settimanale</button> <button id=bE>Esporta</button> <button id=bI>Importa</button> <button class=pr id=bN>+ Nuovo</button></div></header>
+</style></head><body><div class=lay><nav><button class=me id=me><span class=av id=pav>?</span><span><b id=pnm>Profilo</b><span class=mu id=psb>Aggiungi i tuoi dati</span></span></button><div class=sh>Progetti</div><div class=chips id=ch></div><div class=sh>Parole chiave</div><div class=chips id=ct></div><div class=sh>Anni</div><div id=yn></div><div class=nf><button class=me id=bst><span class=av style="background:none;color:var(--mu);font-size:19px">⚙</span><b>Impostazioni</b></button><div class=mu id=ver style="padding:4px 10px 0"></div></div></nav><main>
+<header><h1>Oggi<span id=d0></span></h1><div class=hb><button id=bS>☁ Accedi</button> <button id=bA hidden>⬇ Installa app</button> <button id=bV></button> <button id=bG>✨ Coach Gemini</button> <button id=bR>Revisione settimanale</button> <button id=bE hidden>Esporta</button><button id=bI hidden>Importa</button> <button class=pr id=bN>+ Nuovo</button></div></header>
 <div class=tb><input id=q autofocus placeholder="Scrivi e premi Invio. Es: Studiare C++ #Tesi +uni +studio /s x3 @30/10 ~45  (#progetto, +parola chiave, /g /s /m /p, /e evento, /i impegno, ~minuti)">
 <input id=sr type=search placeholder="Cerca (tasto /)"></div><div id=bn></div><div class=kp id=kp></div><div class=cd id=ld></div><div class=cd id=cl style="margin-top:12px"></div><div id=sc style="margin-top:12px"></div>
 <div class=g><div class=cd><h2>Attività delle ultime 4 settimane</h2><div class=hm id=hm></div><div class=mu style="margin-top:6px">Una riga è una settimana (lun-dom)</div></div><div class=cd><h2>Avanzamento per progetto</h2><div id=pr></div></div></div>
@@ -102,6 +122,16 @@ nav .chips,#yn{display:flex;gap:6px;overflow-x:auto}nav .chips button,#yn button
 <label style="display:flex;gap:6px;align-items:center"><input id=t_c type=checkbox style="width:auto;margin:0"> Segna anche come fatto (+1)</label>
 <div id=t_l class=mu></div>
 <div class=bt><button type=button onclick="tq.close()">Annulla</button><button class=pr>Salva tempo</button></div></form></dialog>
+<dialog id=pd><h3>Profilo</h3><div class=mu id=pd_e></div>
+<label>Nome<input id=p_n></label>
+<div class=r2><label>Data di nascita<input id=p_d type=date></label><label>Luogo di nascita<input id=p_b></label></div>
+<label>Residenza<input id=p_r placeholder="Città, Paese"></label>
+<label>Lavoro o occupazione<input id=p_w></label>
+<label>Luoghi di interesse<textarea id=p_l rows=2 placeholder="Città o luoghi che ti interessano, uno per riga o separati da virgola"></textarea></label>
+<label>Altri dati rilevanti<textarea id=p_o rows=3 placeholder="Orari fissi, vincoli, interessi…"></textarea></label>
+<label style="display:flex;gap:6px;align-items:center"><input id=p_ai type=checkbox checked style="width:auto;margin:0"> Il coach Gemini può usare questi dati (età, residenza, lavoro, luoghi e note vengono inviati a Google con la richiesta)</label>
+<div class=bt><button type=button onclick="pd.close()">Annulla</button><button class=pr id=p_s>Salva</button></div></dialog>
+<dialog id=stg style="max-width:560px"><h3>Impostazioni</h3><div class=tabs id=stt></div><div id=stb></div><div class=bt><button class=pr onclick="stg.close()">Chiudi</button></div></dialog>
 <dialog id=sd><h3>☁ Sincronizzazione Google</h3><div id=sb></div><div class=bt><button onclick="sd.close()">Chiudi</button></div></dialog>
 <dialog id=rvd><div id=rb></div><div class=bt><button onclick="rvd.close();gc('rev')">✨ Chiedi a Gemini</button><button onclick="rvd.close()">Chiudi</button><button class=pr id=rs>Salva e imposta</button></div></dialog>
 <script>
@@ -110,7 +140,7 @@ P=s=>new Date(s+'T00:00'),add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+
 mon=d=>add(d,-((d.getDay()+6)%7)),today=()=>{const d=new Date();d.setHours(0,0,0,0);return d},
 esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
 col=p=>`hsl(${[...p].reduce((a,c)=>(a*31+c.charCodeAt(0))%360,7)} 55% 45%)`,
-fd=(d,o)=>d.toLocaleDateString('it-IT',o||{weekday:'short',day:'numeric',month:'short'}),
+fd=(d,o)=>d.toLocaleDateString(LC(),o||{weekday:'short',day:'numeric',month:'short'}),
 KEY='dash_obiettivi_v1',uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 let S=null,T0=today(),cur=null;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
@@ -145,7 +175,7 @@ ${g.note?`<div class=mu>${esc(g.note)}</div>`:''}<div class=bar><i style="width:
 <span class=ch>${r.done}/${r.t}</span>${g.lt?`<span class=ch>↳ ${esc(g.lt)}</span>`:''}${(g.fl||[]).length?`<span class=ch title="File allegati">📎 ${g.fl.length}</span>`:''}<span class=ch title="Tempo che occupa in una giornata">⏱ ${dur(g.est||30)}${r.f=='d'&&r.t>1?' × '+r.t:''}</span>${((o)=>o.n?`<span class="ch ${o.s>(g.est||30)*o.n*1.25?'wa':'ok'}" title="Tempo reale registrato oggi">reale ${dur(o.s)}</span>`:'')(sp(g,iso(T0)))}${(g.k||[]).map(k=>`<span class=ch data-k="${esc(k)}" style="cursor:pointer">${esc(k)}</span>`).join('')}<span class="ch ${ok?'':dc}">${r.e?dls(r)+' · '+fd(r.e)+(g.hr?' · '+g.hr:''):'senza scadenza'}</span>${ok?'<span class="ch ok">fatto</span>':r.e&&g.ty!='ev'?`<span class="ch ${k}" title="Calcolato da ritmo richiesto, affidabilità storica e carico totale">${r.feas}% ${l}</span>`:''}${r.f!='o'&&(r.cur||r.best)?`<span class=ch title="Record ${r.best} ${u}">🔥 ${r.cur} ${u}</span>`:''}</div>
 <span class=ra><button class=ib title="Registra il tempo reale" onclick="ot('${g.id}')">⏱</button><button class=ib title="Annulla l’ultimo" onclick="bump('${g.id}',-1)" ${g.log[iso(T0)]?'':'hidden'}>↶</button></span></div>`}
 function rvInfo(T){const nxt=(T.getDay()+6)%7>=5,tw=nxt?add(mon(T),7):mon(T);return{nxt,tw,k:iso(tw),rs:nxt?mon(T):add(mon(T),-7)}}
-function render(){T0=today();document.body.classList.toggle('cmp',!!S.cmp);bV.textContent=S.cmp?'Vista: compatta':'Vista: estesa';const T=T0,cap=S.cap||240,L=S.goals.filter(g=>live(g,T)).map(g=>info(g,T)),
+function render(){T0=today();document.body.classList.toggle('cmp',!!S.cmp);bV.textContent=S.cmp?'Vista: compatta':'Vista: estesa';profUi();const T=T0,cap=S.cap||240,L=S.goals.filter(g=>live(g,T)).map(g=>info(g,T)),
  load=L.reduce((a,r)=>a+r.m,0),sc=load>cap?cap/load:1;
  L.forEach(r=>r.feas=r.need?Math.round(100*r.pace*(.5+.5*r.h)*sc):100);
  $('#d0').textContent=fd(T,{weekday:'long',day:'numeric',month:'long'});
@@ -181,7 +211,7 @@ function quick(x){const T=today();let ex=0,g={id:uid(),f:'d',t:1,est:30,c:iso(T)
 const sw=()=>$('#f_w').style.display=f_f.value=='d'?'':'none';
 function ed(id){cur=S.goals.find(g=>g.id==id)||null;const g=cur||{f:'d',t:1,est:30};
  $('#dt').textContent=cur?'Modifica obiettivo':'Nuovo obiettivo';f_t.value=g.title||'';f_p.value=g.p||'';f_f.value=g.f;f_n.value=g.t;f_d.value=g.dl||'';f_e.value=g.est||30;
- $('#f_w').innerHTML=['L','M','M','G','V','S','D'].map((x,i)=>`<label><input type=checkbox ${!g.days||g.days[i]?'checked':''}>${x}</label>`).join('');
+ $('#f_w').innerHTML=WD().map(x=>x[0]).map((x,i)=>`<label><input type=checkbox ${!g.days||g.days[i]?'checked':''}>${x}</label>`).join('');
  f_x.hidden=!cur;sw();f_k.value=(g.k||[]).join(', ');f_y.value=g.ty||'ob';f_h.value=g.hr||'';f_o.value=g.note||'';AF=(g.fl||[]).map(x=>({...x}));AR=[];f_cp.textContent='Copia contesto per un’altra AI';fls();f_ks.innerHTML=allTags().map(t=>`<button type=button data-t="${esc(t)}">${esc(t)}</button>`).join('');ft();dg.showModal()}
 function rv(){const T=today(),R=rvInfo(T),W=S.goals.filter(g=>g.f=='w'&&!(g.dl&&P(g.dl)<R.tw)),e=add(R.rs,6),
  rec=S.goals.filter(g=>g.f=='w'&&g.c<=iso(e)).map(g=>{const d=doneIn(g,R.rs,e),t=tg(g,R.rs);return`<div>${d>=t?'✅':'❌'} ${esc(g.title)} <span class=mu>${d}/${t}</span></div>`}).join('')||'<span class=mu>Nessun obiettivo settimanale.</span>';
@@ -240,11 +270,11 @@ gd.addEventListener('close',()=>{FOCUS=''});
 const APPV='2026-10-28',SKEY='dash_sync_v1',FBV='10.11.1',
 loadJs=src=>new Promise((ok,ko)=>{const e=document.createElement('script');e.src=src;e.onload=ok;e.onerror=()=>ko(Error('Impossibile caricare i moduli Google (sei offline?)'));document.head.appendChild(e)}),
 hsh=o=>{const t=JSON.stringify(o);let h=5381;for(let i=0;i<t.length;i++)h=(h*33^t.charCodeAt(i))>>>0;return h+'.'+t.length},
-mset=()=>({cap:S.cap||240,rev:S.rev||'',gm:S.gm||'',ye:S.ye||[]}),
+mset=()=>({cap:S.cap||240,rev:S.rev||'',gm:S.gm||'',ye:S.ye||[],prof:S.prof||{},lang:S.lang||'it',hc:S.hc||[],hon:S.hon!==false}),
 fbCfg=()=>{if(window.FIREBASE_CONFIG&&window.FIREBASE_CONFIG.apiKey)return window.FIREBASE_CONFIG;try{return JSON.parse(localStorage.getItem('dash_fb_cfg'))}catch(e){return null}},
 sSave=()=>{try{localStorage.setItem(SKEY,JSON.stringify(SY))}catch(e){}},
 uref=()=>FBD.collection('users').doc(FBU.uid),
-hhmm=()=>new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+hhmm=()=>new Date().toLocaleTimeString(LC(),{hour:'2-digit',minute:'2-digit'});
 let SY={h:{},u:{},d:{}},FBU=null,FBA=null,FBD=null,SUB=[],ST='',SYT=null,BUSY=false,LAST='',GREADY=false,MREADY=false;
 try{SY=JSON.parse(localStorage.getItem(SKEY))||SY}catch(e){}
 function scan(){const n=Date.now();let any=0;SY.d=SY.d||{};
@@ -277,7 +307,7 @@ function onGoals(sn){GREADY=true;scan();let ch=0;
  if(ch){save();render()}sSave();pushAll()}
 function onMeta(d){const first=!MREADY;MREADY=true;
  if(d.exists&&!d.metadata.hasPendingWrites){const r=d.data();
-  if(r.u>(SY.mu||0)){scan();if(!(SY.mh!==undefined&&SY.dm&&SY.dm>r.u)){Object.assign(S,JSON.parse(r.j));SY.mh=hsh(mset());SY.mu=r.u;delete SY.dm;save();sSave();render()}}}
+  if(r.u>(SY.mu||0)){scan();if(!(SY.mh!==undefined&&SY.dm&&SY.dm>r.u)){Object.assign(S,JSON.parse(r.j));SY.mh=hsh(mset());SY.mu=r.u;delete SY.dm;save();sSave();render();applyLang()}}}
  if(first)pushAll()}
 function onUser(u){FBU=u;GREADY=MREADY=false;SUB.forEach(f=>f());SUB=[];
  if(u){if(SY.uid!==u.uid)SY={h:{},u:{},d:{},uid:u.uid};
@@ -287,7 +317,7 @@ async function fbInit(){if(FBD)return true;const cfg=fbCfg();if(!cfg)return fals
  if(!window.firebase){const B='https://www.gstatic.com/firebasejs/'+FBV+'/firebase-';for(const n of['app','auth','firestore'])await loadJs(B+n+'-compat.js')}
  firebase.initializeApp(cfg);FBA=firebase.auth();FBD=firebase.firestore();FBA.onAuthStateChanged(onUser);return true}
 async function fbLogin(){try{await fbInit();await FBA.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){if(e.code=='auth/popup-closed-by-user')return;ST='err:'+(e.code=='auth/unauthorized-domain'?'dominio non autorizzato: aggiungilo in Firebase, Authentication, Impostazioni, Domini autorizzati':e.message);sui()}}
-function sui(){bS.textContent=FBU?(ST.startsWith('err')?'☁ Errore sync':'☁ Sync attiva'):'☁ Accedi';if(!sd.open)return;
+function sui(){profUi();bS.textContent=FBU?(ST.startsWith('err')?'☁ Errore sync':'☁ Sync attiva'):'☁ Accedi';if(!sd.open)return;
  const er=ST.startsWith('err')?`<p style="color:var(--er)">${esc(ST.slice(4))}</p>`:'';
  sb.innerHTML=!fbCfg()?`<p class=mu>Per sincronizzare i dati serve la configurazione del tuo progetto Firebase (gratuito, vedi LEGGIMI.txt). Incollala qui oppure scrivila in firebase-config.js.</p><label>Configurazione Firebase (oggetto firebaseConfig)<textarea id=fcfg rows=6 placeholder='{ "apiKey": "...", "authDomain": "...", "projectId": "...", "appId": "..." }'></textarea></label>${er}<div class=bt><button class=pr id=fsv>Salva configurazione</button></div>`
  :!FBU?`<p class=mu>Accedi con il tuo account Google: i dati si sincronizzeranno su tutti i dispositivi in cui accedi.</p>${er}<div class=bt><button class=pr id=fgo>Accedi con Google</button></div>`
@@ -297,20 +327,144 @@ sb.onclick=async e=>{const id=e.target.id;
  else if(id=='fgo')fbLogin();else if(id=='fnow')pushAll();else if(id=='fout'){await FBA.signOut();ST='';sui()}};
 bS.onclick=()=>{sd.showModal();sui()};
 addEventListener('online',()=>{if(fbCfg()&&!FBD)fbInit().catch(()=>0);else pushAll()});
+const LC=()=>({it:'it-IT',en:'en-GB'}[S.lang||'it']),CAP=s=>s.charAt(0).toUpperCase()+s.slice(1),$id=i=>document.getElementById(i),
+MN=()=>[...Array(12)].map((_,i)=>CAP(new Date(2024,i,1).toLocaleDateString(LC(),{month:'short'}))),
+WD=()=>[...Array(7)].map((_,i)=>CAP(new Date(2024,0,1+i).toLocaleDateString(LC(),{weekday:'short'})));
+/* ===== Profilo ===== */
+function profUi(){const p=S.prof||{},u=FBU||{},nm=p.n||u.displayName||'',em=u.email||'',
+ ini=(nm||em||'?').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+ pav.innerHTML=esc(ini)+(u.photoURL?`<img src="${esc(u.photoURL)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:'');
+ pnm.textContent=nm||'Profilo';psb.textContent=nm?(em||'Modifica il profilo'):'Aggiungi i tuoi dati'}
+me.onclick=()=>{const p=S.prof||{};p_n.value=p.n||'';p_d.value=p.d||'';p_b.value=p.b||'';p_r.value=p.r||'';p_w.value=p.w||'';p_l.value=p.l||'';p_o.value=p.o||'';p_ai.checked=p.ai!==false;pd_e.textContent=FBU?'Account Google: '+FBU.email:'';pd.showModal()};
+p_s.onclick=()=>{S.prof={n:p_n.value.trim(),d:p_d.value,b:p_b.value.trim(),r:p_r.value.trim(),w:p_w.value.trim(),l:p_l.value.trim(),o:p_o.value.trim(),ai:p_ai.checked};save();profUi();pd.close()};
+const profAI=()=>{const p=S.prof;if(!p||p.ai===false)return undefined;const e=p.d?Math.floor((Date.now()-new Date(p.d))/315576e5):0;return clean({eta:e>0?e:undefined,residenza:p.r,lavoro:p.w,luoghi_di_interesse:p.l,note:p.o})};
+/* ===== Festività ===== */
+const HK='dash_hol_v1',NG='https://date.nager.at/api/v3/',HP={};let HD={};try{HD=JSON.parse(localStorage.getItem(HK))||{}}catch(e){}
+const hSave=()=>{try{localStorage.setItem(HK,JSON.stringify(HD))}catch(e){}},flag=c=>[...c].map(x=>String.fromCodePoint(127397+x.charCodeAt(0))).join('');
+async function holCountries(){if(HD.c&&HD.c.length)return HD.c;const r=await fetch(NG+'AvailableCountries');if(!r.ok)throw Error('HTTP '+r.status);HD.c=(await r.json()).map(x=>({c:x.countryCode,n:x.name})).sort((a,b)=>a.n.localeCompare(b.n));hSave();return HD.c}
+async function holYear(y){HD.y=HD.y||{};let any=0;
+ for(const c of S.hc||[]){const k=c+y;if(HD.y[k]||HP[k])continue;HP[k]=1;
+  try{const r=await fetch(`${NG}PublicHolidays/${y}/${c}`);if(!r.ok)throw 0;HD.y[k]=(await r.json()).filter(h=>h.global!==false).map(h=>[h.date,h.name,h.localName]);delete HP[k];any=1}catch(e){}}
+ if(any){hSave();render()}}
+function holMap(){const m={};if(S.hon===false)return m;const hc=S.hc||[];
+ for(const k in HD.y||{}){const c=k.slice(0,2);if(!hc.includes(c))continue;for(const[d,n,l]of HD.y[k])(m[d]=m[d]||[]).push({c,n:c=='IT'&&(S.lang||'it')=='it'?l:n})}return m}
+function holNext(){const m=holMap(),a=iso(today()),b=iso(add(today(),60)),o=[];Object.keys(m).sort().forEach(d=>{if(d>=a&&d<=b)m[d].forEach(x=>o.push({data:d,nome:x.n,paese:x.c}))});return o.slice(0,12)}
+async function holImport(){const sel=S.hc||[],y=today().getFullYear(),ys=[y-1,y,y+1];for(const c of sel)for(const yy of ys)delete HP[c+yy];
+ for(const yy of ys)await holYear(yy);let n=0;for(const c of sel)for(const yy of ys)n+=((HD.y||{})[c+yy]||[]).length;
+ const e=$id('hl_s');if(e)e.textContent=n?`Importate ${n} festività (${y-1}–${y+1}).`:'Nessuna festività importata: controlla la connessione o scegli almeno un paese.'}
+const hlStatus=()=>{const s=S.hc||[],e=$id('hl_s');if(e)e.textContent=(s.length?'Selezionati: '+s.join(', ')+'. ':'Nessun paese selezionato. ')+'Le festività nazionali vengono scaricate da date.nager.at e salvate sul dispositivo.'};
+async function holUi(){stb.innerHTML='<p class=mu>Caricamento dei paesi…</p>';let cs;
+ try{cs=await holCountries()}catch(e){if(STAB=='hl')stb.innerHTML=`<p style="color:var(--er)">Impossibile scaricare l’elenco dei paesi (${esc(e.message)}). Controlla la connessione.</p>`;return}
+ if(STAB!='hl')return;const sel=S.hc||[];
+ stb.innerHTML=`<label style="display:flex;gap:8px;align-items:center;font-weight:400;color:var(--tx)"><input type=checkbox id=hl_on ${S.hon===false?'':'checked'} style="width:auto;margin:0"> Mostra le festività nel calendario</label><label>Paesi (uno o più)<input id=hl_f placeholder="Cerca un paese…"></label><div class=cl id=hl_l>${cs.map(c=>`<label data-n="${esc(c.n.toLowerCase())}"><input type=checkbox value=${c.c} ${sel.includes(c.c)?'checked':''}> ${flag(c.c)} ${esc(c.n)}</label>`).join('')}</div><p class=mu id=hl_s></p><div class=bt style="justify-content:flex-start"><button class=pr id=hl_i>Importa festività</button></div>`;hlStatus()}
+/* ===== Impostazioni ===== */
+const PRE=[['Oceano','#eaf2f8','#0b6fa4'],['Foresta','#edf3ee','#2f7d4f'],['Tramonto','#fbf0e8','#d9480f'],['Lavanda','#f1eefb','#6741d9'],['Grafite','#15181d','#38bdf8'],['Notte','#140f24','#a78bfa']];
+let STAB='th';
+function stgUi(){stt.innerHTML=[['th','Aspetto'],['lg','Lingua'],['hl','Festività'],['dt','Dati']].map(([k,t])=>`<button data-k=${k} class="${k==STAB?'on':''}">${t}</button>`).join('');
+ const th=S.th||{m:'auto'};let h='';
+ if(STAB=='th')h=`<label>Tema<select id=th_m><option value=auto>Automatico (segue il sistema)<option value=light>Chiaro<option value=dark>Scuro<option value=custom>Personalizzato (due colori)</select></label><div id=th_c${th.m=='custom'?'':' hidden'}><div class=r2><label>Colore di sfondo<input type=color id=th_b value="${th.bg||'#f5f6f8'}" style="height:42px;padding:3px"></label><label>Colore principale<input type=color id=th_a value="${th.ac||'#0f766e'}" style="height:42px;padding:3px"></label></div><label>Coppie pronte</label>${PRE.map((p,i)=>`<button type=button class=sw data-i=${i} title="${p[0]}"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></button>`).join('')}</div>`;
+ else if(STAB=='lg')h=`<label>Lingua dell’interfaccia<select id=lg_s><option value=it>Italiano<option value=en>English</select></label><p class=mu>Cambia testi, date e calendario. Il coach Gemini risponde nella lingua scelta.</p>`;
+ else if(STAB=='dt')h=`<p class=mu>Backup completo dei tuoi dati in un file JSON, oppure ripristino da un backup.</p><div class=bt style="justify-content:flex-start"><button id=dt_e>Esporta backup</button><button id=dt_i>Importa backup</button></div><p class=mu>Se sei connesso con Google, importare un backup sostituisce i dati su tutti i dispositivi.</p>`;
+ if(STAB!='hl')stb.innerHTML=h;
+ if(STAB=='th')$id('th_m').value=th.m||'auto';if(STAB=='lg')$id('lg_s').value=S.lang||'it';if(STAB=='hl')holUi()}
+stt.onclick=e=>{const b=e.target.closest('button');if(b){STAB=b.dataset.k;stgUi()}};
+stb.onchange=e=>{const t=e.target;
+ if(t.id=='th_m'){S.th={...(S.th||{}),m:t.value};if(t.value=='custom'){S.th.bg=S.th.bg||'#f5f6f8';S.th.ac=S.th.ac||'#0f766e'}applyTheme(S.th);save();stgUi()}
+ else if(t.id=='lg_s'){S.lang=t.value;save();render();applyLang();stgUi()}
+ else if(t.id=='hl_on'){S.hon=t.checked;save();render()}
+ else if(t.closest('#hl_l')){S.hc=[...document.querySelectorAll('#hl_l input:checked')].map(x=>x.value);save();hlStatus();render()}};
+stb.oninput=e=>{const t=e.target;
+ if(t.id=='th_b'||t.id=='th_a'){S.th={...S.th,bg:$id('th_b').value,ac:$id('th_a').value,m:'custom'};applyTheme(S.th);save()}
+ else if(t.id=='hl_f'){const q=t.value.trim().toLowerCase();document.querySelectorAll('#hl_l label').forEach(l=>l.style.display=l.dataset.n.includes(q)?'':'none')}};
+stb.onclick=async e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.classList.contains('sw')){const p=PRE[+b.dataset.i];S.th={m:'custom',bg:p[1],ac:p[2]};applyTheme(S.th);save();stgUi()}
+ else if(b.id=='dt_e')bE.click();else if(b.id=='dt_i')bI.click();
+ else if(b.id=='hl_i'){b.disabled=true;$id('hl_s').textContent='Download in corso…';await holImport();b.disabled=false}};
+bst.onclick=()=>{STAB='th';stg.showModal();stgUi()};
+/* ===== Lingua ===== */
+const EN={
+'Oggi':'Today','☁ Accedi':'☁ Sign in','☁ Sync attiva':'☁ Sync on','☁ Errore sync':'☁ Sync error','⬇ Installa app':'⬇ Install app','Vista: estesa':'View: full','Vista: compatta':'View: compact','✨ Coach Gemini':'✨ Gemini coach','Revisione settimanale':'Weekly review','+ Nuovo':'+ New','Esporta':'Export','Importa':'Import','Cerca (tasto /)':'Search (press /)',
+'🔄 Nuova versione disponibile':'🔄 New version available','Aggiorna':'Update','Più tardi':'Later','Apri':'Open',
+'Profilo':'Profile','Aggiungi i tuoi dati':'Add your details','Modifica il profilo':'Edit profile','Progetti':'Projects','Parole chiave':'Keywords','Anni':'Years','Tutti i progetti':'All projects','Tutte le parole chiave':'All keywords','＋ Aggiungi anno':'＋ Add year','Aggiungi un anno':'Add a year','oggi':'today','Impostazioni':'Settings',
+'giornalieri fatti':'daily done','Settimana':'Week','obiettivi settimanali':'weekly goals','Mese':'Month','obiettivi mensili':'monthly goals','Streak migliore':'Best streak','ancora nessuna':'none yet','Affidabilità':'Reliability','negli ultimi periodi':'in recent periods','Stime vs reale':'Estimate vs actual','tempo reale sul previsto':'actual vs planned time',
+'Carico e fattibilità':'Load and feasibility','Aggiungi il primo obiettivo qui sopra.':'Add your first goal above.','Carico alto: poco margine per gli imprevisti.':'High load: little room for surprises.','Carico sostenibile, c’è spazio per altro.':'Sustainable load, there is room for more.','Nessun obiettivo per ora. Scrivi nella barra qui sopra e premi Invio.':'No goals yet. Type in the bar above and press Enter.',
+'Attività delle ultime 4 settimane':'Activity in the last 4 weeks','Una riga è una settimana (lun-dom)':'Each row is one week (Mon–Sun)','Avanzamento per progetto':'Progress by project','Senza progetto':'No project','Nessuna scadenza o evento.':'No deadlines or events.','+ Evento':'+ Event',
+'Segna +1':'Mark +1','Registra il tempo reale':'Log actual time','Annulla l’ultimo':'Undo last','File allegati':'Attached files','Tempo che occupa in una giornata':'Time it takes in a day','Tempo reale registrato oggi':'Actual time logged today','Tempo medio al giorno richiesto':'Average daily time required','Calcolato da ritmo richiesto, affidabilità storica e carico totale':'Based on required pace, past reliability and total load',
+'senza scadenza':'no deadline','fatto':'done','Fattibile':'Feasible','A rischio':'At risk','Critico':'Critical',
+'obiettivo':'goal','impegno':'commitment','evento':'event','giornaliero':'daily','settimanale':'weekly','mensile':'monthly','lungo termine o progetto':'long term or project',
+'Nuovo obiettivo':'New goal','Modifica obiettivo':'Edit goal','Titolo':'Title','Tipo':'Type','Obiettivo':'Goal','Impegno':'Commitment','Evento':'Event','Ora (facoltativa)':'Time (optional)','Descrizione':'Description','Di cosa si tratta, cosa conta come fatto…':'What it is about, what counts as done…','Allegati (PDF, immagini, testi)':'Attachments (PDF, images, texts)','＋ Aggiungi file':'＋ Add file','Copia contesto per un’altra AI':'Copy context for another AI','✓ Contesto copiato':'✓ Context copied','✨ Pianifica con Gemini':'✨ Plan with Gemini','Progetto':'Project','es. Tesi, PLC, Lavoro':'e.g. Thesis, PLC, Work','Frequenza':'Frequency','Giornaliero':'Daily','Settimanale':'Weekly','Mensile':'Monthly','Progetto con scadenza':'Project with deadline','Target (volte o unità)':'Target (times or units)','Scadenza':'Deadline','Tempo per volta (min)':'Time per session (min)','uni, studio, palestra…':'uni, study, gym…','Elimina':'Delete','Annulla':'Cancel','Salva':'Save','Scarica':'Download','Nessun file: trascina qui PDF, immagini o testi che aiutano a pianificare.':'No files: drop PDFs, images or texts here to help planning.',
+'Data':'Date','Previsto':'Planned','Inizio reale':'Actual start','Fine reale':'Actual end','Giustificazione (perché questi tempi?)':'Justification (why these times?)','Es. interruzioni, più difficile del previsto, finito prima…':'E.g. interruptions, harder than expected, finished early…','Segna anche come fatto (+1)':'Also mark as done (+1)','Salva tempo':'Save time','elimina':'delete','Reali':'Actual','scostamento alto: giustificalo qui sotto':'big deviation: justify it below',
+'Chiave API e modello':'API key and model','Chiave API (da Google AI Studio)':'API key (from Google AI Studio)','Modello':'Model','Rimuovi chiave':'Remove key','✓ Chiave salvata in questo browser':'✓ Key saved in this browser','Nessuna chiave salvata':'No key saved','Il browser non permette di salvare la chiave':'The browser does not allow saving the key','La chiave resta salvata in questo browser, non viene mai esportata e su un altro dispositivo va reinserita una volta. Quando usi il coach, obiettivi e statistiche vengono inviati a Google.':'The key stays saved in this browser, is never exported and must be re-entered once on another device. When you use the coach, goals and statistics are sent to Google.','Cosa vuoi aggiungere o cambiare? (scrivi o detta)':'What do you want to add or change? (type or dictate)','Es. Aggiungi l’esame di Controlli il 12 febbraio. Oppure: sposta la palestra al lunedì e togli gli integratori.':'E.g. Add the Controls exam on 12 February. Or: move the gym to Monday and remove the supplements.','Includi i file allegati (vengono inviati a Google)':'Include attached files (they are sent to Google)','Includi i file allegati (PDF, immagini, testi): vengono inviati a Google':'Include attached files (PDF, images, texts): they are sent to Google','Esegui richiesta':'Run request','Rivedi i miei obiettivi':'Review my goals','🎤 Detta':'🎤 Dictate','⏹ Stop':'⏹ Stop','Applica selezionati':'Apply selected','Chiudi':'Close','Gemini sta elaborando…':'Gemini is working…','Nuovo':'New','Modifica':'Edit','Il dettato vocale non è disponibile in questo browser: usa Chrome, Edge o Safari.':'Voice dictation is not available in this browser: use Chrome, Edge or Safari.','Scrivi o detta prima la richiesta.':'Type or dictate the request first.','Inserisci la chiave API nella sezione in alto.':'Enter the API key in the section above.',
+'☁ Sincronizzazione Google':'☁ Google sync','Per sincronizzare i dati serve la configurazione del tuo progetto Firebase (gratuito, vedi LEGGIMI.txt). Incollala qui oppure scrivila in firebase-config.js.':'To sync your data you need the configuration of your Firebase project (free, see the README). Paste it here or write it in firebase-config.js.','Configurazione Firebase (oggetto firebaseConfig)':'Firebase configuration (firebaseConfig object)','Salva configurazione':'Save configuration','Accedi con il tuo account Google: i dati si sincronizzeranno su tutti i dispositivi in cui accedi.':'Sign in with your Google account: your data will sync across all the devices you sign in on.','Accedi con Google':'Sign in with Google','Connesso come':'Signed in as','Sincronizza ora':'Sync now','Esci':'Sign out',
+'Target per la prossima settimana (0 = pausa)':'Targets for next week (0 = pause)','Nuovo obiettivo solo per quella settimana':'New goal for that week only','Es. Rifare il CV #Lavoro x2':'E.g. Redo the CV #Work x2','Nessun obiettivo settimanale.':'No weekly goals.','✨ Chiedi a Gemini':'✨ Ask Gemini','Salva e imposta':'Save and apply','Tempo reale e previsto (ultimi 28 giorni)':'Actual vs planned time (last 28 days)','Nessun tempo registrato: usa il pulsante ⏱ su un obiettivo.':'No time logged: use the ⏱ button on a goal.',
+'Nome':'Name','Data di nascita':'Date of birth','Luogo di nascita':'Place of birth','Residenza':'Residence','Città, Paese':'City, Country','Lavoro o occupazione':'Job or occupation','Luoghi di interesse':'Places of interest','Città o luoghi che ti interessano, uno per riga o separati da virgola':'Cities or places you care about, one per line or comma-separated','Altri dati rilevanti':'Other relevant details','Orari fissi, vincoli, interessi…':'Fixed schedules, constraints, interests…','Il coach Gemini può usare questi dati (età, residenza, lavoro, luoghi e note vengono inviati a Google con la richiesta)':'The Gemini coach may use these details (age, residence, job, places and notes are sent to Google with the request)',
+'Aspetto':'Appearance','Lingua':'Language','Festività':'Holidays','Dati':'Data','Tema':'Theme','Automatico (segue il sistema)':'Automatic (follows the system)','Chiaro':'Light','Scuro':'Dark','Personalizzato (due colori)':'Custom (two colors)','Colore di sfondo':'Background color','Colore principale':'Main color','Coppie pronte':'Ready-made pairs','Oceano':'Ocean','Foresta':'Forest','Tramonto':'Sunset','Lavanda':'Lavender','Grafite':'Graphite','Notte':'Night','Lingua dell’interfaccia':'Interface language','Cambia testi, date e calendario. Il coach Gemini risponde nella lingua scelta.':'Changes texts, dates and calendar. The Gemini coach replies in the chosen language.','Caricamento dei paesi…':'Loading countries…','Mostra le festività nel calendario':'Show holidays in the calendar','Paesi (uno o più)':'Countries (one or more)','Cerca un paese…':'Search a country…','Importa festività':'Import holidays','Download in corso…':'Downloading…','Nessuna festività importata: controlla la connessione o scegli almeno un paese.':'No holidays imported: check your connection or choose at least one country.','Backup completo dei tuoi dati in un file JSON, oppure ripristino da un backup.':'Full backup of your data in a JSON file, or restore from a backup.','Esporta backup':'Export backup','Importa backup':'Import backup','Se sei connesso con Google, importare un backup sostituisce i dati su tutti i dispositivi.':'If you are signed in with Google, importing a backup replaces the data on all devices.'
+};
+const RX=[
+[/^Scrivi e premi Invio\.[\s\S]*$/,()=>'Type and press Enter. E.g.: Study C++ #Thesis +uni +study /s x3 @30/10 ~45  (#project, +keyword, /g daily /s weekly /m monthly /p project, /e event, /i commitment, ~minutes)'],
+[/^Versione (.+)$/,m=>'Version '+m[1]],
+[/^Servono circa (\d+) min\/giorno su$/,m=>`About ${m[1]} min/day needed out of`],
+[/^disponibili \((\d+)%\)\. (.*)$/,m=>`available (${m[1]}%). `+TL(m[2])],
+[/^Sei in sovraccarico: il più a rischio è «(.*)»\. Riduci i target o sposta una scadenza\.$/,m=>`You are overloaded: the riskiest is «${m[1]}». Reduce targets or move a deadline.`],
+[/^Sei in sovraccarico: Riduci i target o sposta una scadenza\.$/,()=>'You are overloaded: reduce targets or move a deadline.'],
+[/^(\S+) Oggi( · .*)?$/,m=>m[1]+' Today'+(m[2]||'')],
+[/^(\S+) (Questa settimana|Questo mese|Lungo termine e scadenze|Eventi e impegni|Scadenze vicine)$/,m=>m[1]+' '+({'Questa settimana':'This week','Questo mese':'This month','Lungo termine e scadenze':'Long term and deadlines','Eventi e impegni':'Events and commitments','Scadenze vicine':'Upcoming deadlines'})[m[2]]],
+[/^scade oggi( · .*)?$/,m=>'due today'+(m[1]||'')],
+[/^scade domani( · .*)?$/,m=>'due tomorrow'+(m[1]||'')],
+[/^scade tra (\d+)g( · .*)?$/,m=>`due in ${m[1]}d`+(m[2]||'')],
+[/^scaduto da (\d+)g( · .*)?$/,m=>`overdue by ${m[1]}d`+(m[2]||'')],
+[/^(\d+)% (Fattibile|A rischio|Critico)$/,m=>m[1]+'% '+({'Fattibile':'Feasible','A rischio':'At risk','Critico':'Critical'})[m[2]]],
+[/^reale (.*)$/,m=>'actual '+m[1]],
+[/^🔥 (\d+) (giorni|sett\.|mesi)$/,m=>`🔥 ${m[1]} `+({'giorni':'days','sett.':'wks','mesi':'months'})[m[2]]],
+[/^Fatto: (.*)$/,m=>'Done: '+m[1]],
+[/^Tempo reale: (.*)$/,m=>'Actual time: '+m[1]],
+[/^(\d{4}): (\d+) attività completate · (\d+) giorni attivi · (.*) di tempo reale$/,m=>`${m[1]}: ${m[2]} activities completed · ${m[3]} active days · ${m[4]} of actual time`],
+[/^(.*): (\d+) fatti$/,m=>`${m[1]}: ${m[2]} done`],
+[/^: imposta gli obiettivi (della prossima settimana|di questa settimana)\.$/,m=>': set the goals for '+(m[1]=='della prossima settimana'?'next week':'this week')+'.'],
+[/^Revisione: settimana dal (.*)$/,m=>'Review: week from '+m[1]],
+[/^Com’è andata la settimana dal (.*)$/,m=>`How the week from ${m[1]} went`],
+[/^(\d+) sessioni · inizio tipico (.*)$/,m=>`${m[1]} sessions · typical start ${m[2]}`],
+[/^Motivi: (.*)$/,m=>'Reasons: '+m[1]],
+[/^💡 Stima troppo bassa: porta il tempo per volta a ~(\d+) min o dividi l’attività in due sessioni\.(?: Inizi di solito verso le (\d\d:\d\d): blocca quella fascia\.)?$/,m=>`💡 Estimate too low: raise the time per session to ~${m[1]} min or split the activity in two sessions.`+(m[2]?` You usually start around ${m[2]}: block that slot.`:'')],
+[/^💡 Stima troppo alta: riduci a ~(\d+) min e usa il tempo risparmiato per altro\.(?: Inizi di solito verso le (\d\d:\d\d): blocca quella fascia\.)?$/,m=>`💡 Estimate too high: reduce to ~${m[1]} min and use the saved time for something else.`+(m[2]?` You usually start around ${m[2]}: block that slot.`:'')],
+[/^Tempo reale · (.*)$/,m=>'Actual time · '+m[1]],
+[/^su (\d+) previsti \((.*)\)( · )?$/,m=>`of ${m[1]} planned (${m[2]})`+(m[3]||'')],
+[/^Errore: (.*)$/,m=>'Error: '+TL(m[1])],
+[/^Microfono: (.*)$/,m=>'Microphone: '+m[1]],
+[/^(\d+) file non inviati a Gemini \(tipo non supportato, non trovati in questo browser o oltre il limite di 10 MB\)\.$/,m=>`${m[1]} files not sent to Gemini (unsupported type, not found in this browser or over the 10 MB limit).`],
+[/^Invierò a Gemini solo i file allegati di «(.*)»\.$/,m=>`I will send Gemini only the attachments of «${m[1]}».`],
+[/^(Ultima sincronizzazione alle (\d\d:\d\d)\.|Sincronizzazione attiva\.) Gli allegati restano sul dispositivo in cui li hai aggiunti\.$/,m=>(m[2]?`Last sync at ${m[2]}.`:'Sync active.')+' Attachments stay on the device where you added them.'],
+[/^Configurazione non valida: (.*)$/,m=>'Invalid configuration: '+m[1]],
+[/^Account Google: (.*)$/,m=>'Google account: '+m[1]],
+[/^Selezionati: (.*)\. Le festività nazionali vengono scaricate da date\.nager\.at e salvate sul dispositivo\.$/,m=>`Selected: ${m[1]}. National holidays are downloaded from date.nager.at and saved on the device.`],
+[/^Nessun paese selezionato\. Le festività nazionali vengono scaricate da date\.nager\.at e salvate sul dispositivo\.$/,()=>'No country selected. National holidays are downloaded from date.nager.at and saved on the device.'],
+[/^Importate (\d+) festività \((.*)\)\.$/,m=>`Imported ${m[1]} holidays (${m[2]}).`],
+[/^Impossibile scaricare l’elenco dei paesi \((.*)\)\. Controlla la connessione\.$/,m=>`Could not download the list of countries (${m[1]}). Check your connection.`],
+[/^.+ · .+$/,m=>m[0].split(' · ').map(p=>TL(p)).join(' · ')]
+];
+const OR=new WeakMap(),TL=s=>{const t=s.trim();if(!t)return s;let r=EN[t];if(r===undefined)for(const[x,f]of RX){const m=t.match(x);if(m){r=f(m);break}}return r===undefined?s:s.replace(t,()=>r)},
+tt=(t,en)=>{const pn=t.parentNode&&t.parentNode.nodeName;if(/^(SCRIPT|STYLE|TEXTAREA)$/.test(pn))return;let o=OR.get(t);if(o===undefined){if(!en)return;o=t.nodeValue;OR.set(t,o)}const v=en?TL(o):o;if(t.nodeValue!==v)t.nodeValue=v},
+ta=(e,en)=>{for(const a of['placeholder','title']){const v=e.getAttribute&&e.getAttribute(a);if(v==null)continue;e.__o=e.__o||{};if(e.__o[a]===undefined){if(!en)continue;e.__o[a]=v}const t=en?TL(e.__o[a]):e.__o[a];if(v!==t)e.setAttribute(a,t)}};
+function trTree(n){const en=(S.lang||'it')=='en';if(n.nodeType==3){tt(n,en);return}if(n.nodeType!=1)return;
+ const w=document.createTreeWalker(n,NodeFilter.SHOW_TEXT);let t;while(t=w.nextNode())tt(t,en);
+ [n,...n.querySelectorAll('[placeholder],[title]')].forEach(e=>ta(e,en))}
+function applyLang(){document.documentElement.lang=S.lang||'it';trTree(document.body)}
+new MutationObserver(ms=>{if((S.lang||'it')!='en')return;ms.forEach(m=>m.addedNodes.forEach(trTree))}).observe(document.body,{childList:true,subtree:true});
+
 const IC={ob:'🎯',im:'📌',ev:'📅'},TN={ob:'obiettivo',im:'impegno',ev:'evento'},TC={ob:'var(--ac)',im:'var(--wa)',ev:'var(--ok)'},
 MS=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
 sk=r=>r.f=='o'&&r.g.ty&&r.g.ty!='ob'?'e':r.f,
 years=()=>{const t=new Set([T0.getFullYear(),T0.getFullYear()+1,...(S.ye||[])]);S.goals.forEach(g=>[g.c,g.dl,...Object.keys(g.log),...(g.tl||[]).map(e=>e.d)].forEach(d=>d&&t.add(+d.slice(0,4))));return[...t].sort((a,b)=>a-b)};
 function cal(){const cy=T0.getFullYear(),y=S.y??cy,mo=S.mo??T0.getMonth(),tI=iso(T0),ym=y+'-'+pad(mo+1),off=(new Date(y,mo,1).getDay()+6)%7,nd=new Date(y,mo+1,0).getDate(),by={};
- S.goals.forEach(g=>{if(g.dl)(by[g.dl]=by[g.dl]||[]).push(g)});
+ S.goals.forEach(g=>{if(g.dl)(by[g.dl]=by[g.dl]||[]).push(g)});const hm_=holMap();if((S.hc||[]).some(c=>!(HD.y&&HD.y[c+y])&&!HP[c+y]))holYear(y);
  const sd=(S.day||'').startsWith(ym)?S.day:ym==tI.slice(0,7)?tI:'';
  $('#yn').innerHTML=years().map(v=>`<button data-y="${v}" class="${v==y?'on':''}"><span>${v}</span>${v==cy?'<small>oggi</small>':''}</button>`).join('')+'<button data-add=1 title="Aggiungi un anno"><small>＋ Aggiungi anno</small></button>';
- let h=`<div style="display:flex;justify-content:space-between;align-items:center"><button data-m=-1>◀</button><h2 style="margin:0">${new Date(y,mo,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'})}</h2><button data-m=1>▶</button></div><div class=mn>${MS.map((x,i)=>`<button data-mo=${i} class="${i==mo?'on':''}">${x}</button>`).join('')}</div><div class=cg>${['Lun','Mar','Mer','Gio','Ven','Sab','Dom'].map(x=>`<b>${x}</b>`).join('')}${'<i></i>'.repeat(off)}`;
+ let h=`<div style="display:flex;justify-content:space-between;align-items:center"><button data-m=-1>◀</button><h2 style="margin:0">${new Date(y,mo,1).toLocaleDateString(LC(),{month:'long',year:'numeric'})}</h2><button data-m=1>▶</button></div><div class=mn>${MN().map((x,i)=>`<button data-mo=${i} class="${i==mo?'on':''}">${x}</button>`).join('')}</div><div class=cg>${WD().map(x=>`<b>${x}</b>`).join('')}${'<i></i>'.repeat(off)}`;
  for(let d=1;d<=nd;d++){const k=ym+'-'+pad(d),A=by[k]||[],n=S.goals.reduce((a,g)=>a+(g.log[k]||0),0);
-  h+=`<button data-d="${k}" class="${k==tI?'td':''} ${k==sd?'sel':''}"${n&&k!=tI?` style="background:color-mix(in srgb,var(--ac) ${Math.min(40,8+n*8)}%,var(--cd))"`:''}>${d}<span>${A.slice(0,4).map(g=>`<u style="background:${TC[g.ty||'ob']}"></u>`).join('')}</span></button>`}
+  h+=`<button data-d="${k}"${hm_[k]?` title="${esc(hm_[k].map(x=>x.n+' ('+x.c+')').join(', '))}"`:''} class="${k==tI?'td':''} ${k==sd?'sel':''}${hm_[k]?' fe':''}"${n&&k!=tI?` style="background:color-mix(in srgb,var(--ac) ${Math.min(40,8+n*8)}%,var(--cd))"`:''}>${d}<span>${A.slice(0,4).map(g=>`<u style="background:${TC[g.ty||'ob']}"></u>`).join('')}</span></button>`}
  h+='</div>';
  if(sd){const A=by[sd]||[],D=S.goals.filter(g=>g.log[sd]),Tm=S.goals.flatMap(g=>(g.tl||[]).filter(e=>e.d==sd).map(e=>esc(g.title)+' '+e.a+'–'+e.b));
-  h+=`<h2 style="margin:10px 0 4px">${fd(P(sd),{weekday:'long',day:'numeric',month:'long'})} <button data-n="${sd}" style="font-size:12px;padding:2px 8px">+ Evento</button></h2>`+(A.length?A.map(g=>`<div>${IC[g.ty||'ob']} <span class=tt onclick="ed('${g.id}')">${esc(g.title)}</span>${g.hr?` <span class=mu>${g.hr}</span>`:''}</div>`).join(''):'<div class=mu>Nessuna scadenza o evento.</div>')+(D.length?`<div class=mu>Fatto: ${D.map(g=>esc(g.title)+' ×'+g.log[sd]).join(', ')}</div>`:'')+(Tm.length?`<div class=mu>Tempo reale: ${Tm.join(', ')}</div>`:'')}
+  h+=`<h2 style="margin:10px 0 4px">${fd(P(sd),{weekday:'long',day:'numeric',month:'long'})} <button data-n="${sd}" style="font-size:12px;padding:2px 8px">+ Evento</button></h2>`+((hm_[sd]||[]).map(x=>`<div>🎌 ${esc(x.n)} <span class=mu>${x.c}</span></div>`).join(''))+(A.length?A.map(g=>`<div>${IC[g.ty||'ob']} <span class=tt onclick="ed('${g.id}')">${esc(g.title)}</span>${g.hr?` <span class=mu>${g.hr}</span>`:''}</div>`).join(''):'<div class=mu>Nessuna scadenza o evento.</div>')+(D.length?`<div class=mu>Fatto: ${D.map(g=>esc(g.title)+' ×'+g.log[sd]).join(', ')}</div>`:'')+(Tm.length?`<div class=mu>Tempo reale: ${Tm.join(', ')}</div>`:'')}
  let u=0,dy=new Set(),mi=0;
  S.goals.forEach(g=>{for(const k in g.log){if(k.startsWith(y+'-')){u+=g.log[k];dy.add(k)}};(g.tl||[]).forEach(e=>{if(e.d.startsWith(y+'-'))mi+=e.m})});
  $('#cl').innerHTML=h+`<div class=mu style="margin-top:8px">${y}: ${u} attività completate · ${dy.size} giorni attivi · ${dur(mi)} di tempo reale</div>`}
@@ -327,7 +481,7 @@ f_y.onchange=()=>{if(f_y.value=='ev'){f_f.value='o';sw()}};
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let RC=null;
 gmic.onclick=()=>{if(!SR){go.textContent='Il dettato vocale non è disponibile in questo browser: usa Chrome, Edge o Safari.';return}
  if(RC){RC.stop();return}
- const b=gt.value?gt.value+' ':'';RC=new SR();RC.lang='it-IT';RC.continuous=true;RC.interimResults=true;
+ const b=gt.value?gt.value+' ':'';RC=new SR();RC.lang=LC();RC.continuous=true;RC.interimResults=true;
  RC.onresult=e=>{let t='';for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;gt.value=b+t};
  RC.onend=()=>{RC=null;gmic.textContent='🎤 Detta'};RC.onerror=e=>{go.textContent='Microfono: '+e.error};
  RC.start();gmic.textContent='⏹ Stop'};
@@ -370,11 +524,11 @@ SYS='Sei il coach di una dashboard personale con obiettivi, impegni ed eventi. R
 let GP=[];
 const clean=o=>Object.fromEntries(Object.entries(o).filter(([,x])=>x!=null&&x!==''&&!Number.isNaN(x))),
 ctx=()=>{const T=today(),cap=S.cap||240,L=S.goals.filter(g=>live(g,T)).map(g=>info(g,T)),ld=L.reduce((a,r)=>a+r.m,0),sc=Math.min(1,cap/ld);
- return JSON.stringify({oggi:iso(T),minuti_disponibili_giorno:cap,carico_minuti_giorno:Math.round(ld),elementi:S.goals.map(g=>{const r=L.find(x=>x.g==g),o={id:g.id,tipo:g.ty||'ob',titolo:g.title,progetto:g.p||'',parole:g.k||[],freq:{d:'g',w:'s',m:'m',o:'p'}[g.f],target:g.t,scadenza:g.dl||'',ora:g.hr||'',giorni:g.days?g.days.map((x,i)=>x?i+1:0).filter(Boolean):[],minuti:g.est||30,lt:g.lt||'',descrizione:g.note||'',attivo:!!r,file:(g.fl||[]).map(f=>f.name)};
+ return JSON.stringify({oggi:iso(T),minuti_disponibili_giorno:cap,carico_minuti_giorno:Math.round(ld),profilo:profAI(),festivita_prossime:holNext(),elementi:S.goals.map(g=>{const r=L.find(x=>x.g==g),o={id:g.id,tipo:g.ty||'ob',titolo:g.title,progetto:g.p||'',parole:g.k||[],freq:{d:'g',w:'s',m:'m',o:'p'}[g.f],target:g.t,scadenza:g.dl||'',ora:g.hr||'',giorni:g.days?g.days.map((x,i)=>x?i+1:0).filter(Boolean):[],minuti:g.est||30,lt:g.lt||'',descrizione:g.note||'',attivo:!!r,file:(g.fl||[]).map(f=>f.name)};
   if(r)Object.assign(o,{fatto:r.done,streak:r.cur,record:r.best,affidabilita_pct:Math.round(r.h*100),fattibilita_pct:r.need?Math.round(100*r.pace*(.5+.5*r.h)*sc):100,tempo:(a=>a&&{sessioni:a.n,medio_min:a.avg,scostamento_pct:a.dv,inizio_tipico:a.st,motivi:a.j})(an(g,T))});return o})})};
 async function gem(p,x=[]){const k=localStorage.getItem(GK);if(!k)throw Error('Inserisci la chiave API nella sezione in alto.');
  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(S.gm||DM)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},
-  body:JSON.stringify({systemInstruction:{parts:[{text:SYS}]},contents:[{role:'user',parts:[{text:p},...x]}],generationConfig:{responseMimeType:'application/json',temperature:.4}})}),
+  body:JSON.stringify({systemInstruction:{parts:[{text:SYS+(S.lang=='en'?' IMPORTANT: ignore the instruction about Italian and write all text fields in English.':'')}]},contents:[{role:'user',parts:[{text:p},...x]}],generationConfig:{responseMimeType:'application/json',temperature:.4}})}),
  j=await r.json();if(!r.ok)throw Error(j.error?.message||'Errore '+r.status);
  return JSON.parse((j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('').replace(/```json|```/g,''))}
 function gc(m){gk.value=localStorage.getItem(GK)||'';gm.value=S.gm||DM;gs.open=!gk.value;ks();go.innerHTML='';ga.hidden=true;gd.showModal();if(m=='rev'&&gk.value)gr('rev')}
@@ -396,7 +550,7 @@ const ks=()=>{let k='';try{k=localStorage.getItem(GK)||''}catch(e){}gks.textCont
 gk.oninput=()=>{const v=gk.value.trim();try{v?localStorage.setItem(GK,v):localStorage.removeItem(GK)}catch(e){gks.textContent='Il browser non permette di salvare la chiave';return}ks();navigator.storage?.persist?.()};
 gx.onclick=()=>{gk.value='';try{localStorage.removeItem(GK)}catch(e){}ks()};
 
-const APP_VER='2026-10-29.1';let LCK=0,SNZ=0;
+const APP_VER='2026-10-29.2';let LCK=0,SNZ=0;
 ver.textContent='Versione '+APP_VER;
 async function chkUpd(f){if(!/^https?:$/.test(location.protocol)||(!f&&Date.now()-LCK<6e5))return;LCK=Date.now();
  try{const r=await fetch('index.html',{cache:'no-store'});if(!r.ok)return;const m=(await r.text()).match(new RegExp('APP_VER'+"='([^']+)'"));
@@ -407,6 +561,6 @@ if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){navigator.
 let IP=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();IP=e;bA.hidden=false});
 bA.onclick=async()=>{if(!IP)return;IP.prompt();await IP.userChoice;IP=null;bA.hidden=true};
 addEventListener('appinstalled',()=>{bA.hidden=true});
-onfocus=render;setInterval(()=>{if(+today()!=+T0)render();if(FBU&&ST.startsWith('err'))pushAll()},60000);render();if(location.hash=='#nuovo')ed();if(location.hash=='#coach')gc();
+onfocus=render;setInterval(()=>{if(+today()!=+T0)render();if(FBU&&ST.startsWith('err'))pushAll()},60000);render();applyLang();if(location.hash=='#nuovo')ed();if(location.hash=='#coach')gc();
 if(fbCfg())fbInit().catch(e=>{ST='err:'+e.message;sui()});
 </script></body></html>
