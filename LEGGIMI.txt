@@ -1,0 +1,56 @@
+OBIETTIVI - app per Android e Windows, con accesso Google e sincronizzazione
+
+Contenuto: index.html (l'app), manifest.json e sw.js (installazione e offline), firebase-config.js
+(da compilare al passo 2), firestore.rules (regole di sicurezza) e le icone.
+
+PASSO 1 - PUBBLICA LA CARTELLA SU GITHUB PAGES (gratis)
+  a. Su github.com crea un repository pubblico (per esempio "obiettivi"). Con l'account gratuito i
+     repository con Pages devono essere pubblici: conterra solo il codice, non i tuoi dati ne la
+     chiave Gemini, che restano nei tuoi dispositivi.
+  b. Carica nel repository tutti i file di questa cartella (Add file > Upload files).
+  c. Settings > Pages > "Deploy from a branch" > branch main, cartella /(root) > Save.
+  d. Dopo qualche minuto l'app e su https://TUO-NOME.github.io/obiettivi/
+
+PASSO 2 - COLLEGA IL TUO ACCOUNT GOOGLE (Firebase, piano gratuito Spark; si fa una volta sola)
+  I dati vengono salvati nel TUO progetto Firebase e solo il tuo account Google puo leggerli.
+  a. Vai su console.firebase.google.com > Aggiungi progetto (nome a piacere, Analytics non serve).
+  b. Build > Authentication > Inizia > Metodo di accesso > Google > Abilita > scegli la tua email
+     di assistenza > Salva.
+  c. Authentication > Impostazioni > Domini autorizzati > Aggiungi dominio: TUO-NOME.github.io
+  d. Build > Firestore Database > Crea database (edizione Standard, regione europea, modalita
+     produzione). Poi scheda Regole: cancella il contenuto, incolla quello di firestore.rules > Pubblica.
+  e. Impostazioni progetto (ingranaggio) > Generali > Le tue app > icona Web (</>) > registra l'app
+     (nome a piacere, senza Hosting) > copia i valori di firebaseConfig.
+  f. Apri firebase-config.js, incolla i valori, salva e ricarica il file su GitHub. In alternativa
+     incolla la configurazione dentro l'app: pulsante "Accedi" in alto.
+  I nomi dei menu nella console possono cambiare leggermente. La configurazione web di Firebase non
+  e un segreto: i dati sono protetti dalle regole di firestore.rules.
+
+PASSO 3 - INSTALLA
+  Android (Chrome): apri l'indirizzo > menu con i tre puntini > "Installa app".
+  Windows (Edge o Chrome): apri l'indirizzo > icona "Installa" nella barra degli indirizzi, oppure
+  il pulsante "Installa app" dentro la dashboard. L'app compare nel menu Start.
+  Se non compare "Installa app": apri l'indirizzo https del sito (non il file salvato), controlla che nel
+  repository ci siano anche manifest.json, sw.js e le icone, ricarica la pagina e usa Impostazioni >
+  Guida > Problemi con l'installazione > Controlla ora.
+
+PASSO 4 - PRIMO ACCESSO E SINCRONIZZAZIONE
+  Sul dispositivo che ha i dati: nel vecchio file HTML premi Esporta (OK per includere i file), poi
+  nell'app installata premi Importa. Quindi premi "Accedi" in alto > "Accedi con Google".
+  Sugli altri dispositivi: installa l'app, premi "Accedi" e usa lo stesso account Google. I dati
+  arrivano da soli e ogni modifica si allinea in pochi secondi. Non importare il file sugli altri
+  dispositivi. Se sei offline le modifiche partono appena torna la connessione.
+  Si sincronizzano: obiettivi, impegni ed eventi, storico, tempi reali, minuti disponibili e ultima
+  revisione. Non si sincronizzano: gli allegati (restano sul dispositivo dove li hai aggiunti), la
+  chiave Gemini (si inserisce una volta per dispositivo), la vista compatta e i filtri.
+  Importare un backup mentre sei connesso sostituisce i dati su tutti i dispositivi.
+  Se il popup di accesso viene bloccato, consenti i popup per il sito.
+
+PASSO 5 - AGGIORNARE
+  Quando ricevi una versione nuova, carica nel repository su GitHub il file indicato (di solito solo
+  index.html) con lo stesso nome: Add file > Upload files > Commit changes. Non sovrascrivere
+  firebase-config.js. L'app installata se ne accorge da sola e mostra l'avviso "Nuova versione
+  disponibile" con il pulsante Aggiorna. In fondo al menu a sinistra vedi la versione in uso.
+
+PASSO 6 - APK E MSIX VERI (facoltativo)
+  Su pwabuilder.com inserisci l'indirizzo dell'app: genera un pacchetto Android e uno Windows.

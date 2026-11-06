@@ -19,7 +19,9 @@ Non ha un server proprio: è un unico `index.html` (HTML, CSS e JavaScript, senz
 - **Funziona offline**, si installa come app e avvisa quando c’è una versione nuova.
 - **Backup** in JSON, con o senza allegati.
 - **Profilo** in cima al menu laterale: nome, data e luogo di nascita, residenza, lavoro, luoghi di interesse e altri dati rilevanti.
-- **Impostazioni** in fondo al menu: tema (automatico, chiaro, scuro o due colori a scelta), lingua (italiano e inglese), festività di uno o più paesi, importazione ed esportazione dei dati.
+- **Impostazioni** in fondo al menu: tema (automatico, chiaro, scuro o due colori a scelta), lingua (italiano e inglese), festività di uno o più paesi, notifiche, importazione ed esportazione dei dati e una **guida** che spiega come funziona l’app.
+- **Agenda di oggi** in ordine di importanza (priorità, scadenza, ora fissa, rischio, streak) e **notifiche** a inizio giornata, a fine giornata e la sera, con ripianificazione automatica delle attività non completate.
+- **Menu ⋯** su ogni attività con Modifica ed Elimina (l’eliminazione si annulla per qualche secondo) e pulsante **Elimina attività** nel modulo.
 
 ## Inserimento rapido
 
@@ -89,6 +91,15 @@ I nomi dei menu nella console possono cambiare leggermente.
 
 Per ottenere pacchetti nativi (APK/AAB per Android, MSIX per Windows) si può inserire l’indirizzo dell’app su [pwabuilder.com](https://www.pwabuilder.com).
 
+### Se non riesci a installare
+
+1. Apri l’indirizzo `https://TUO-NOME.github.io/NOME-REPOSITORY/`, non la pagina del repository su github.com e non il file salvato sul telefono.
+2. Controlla che nel repository ci siano tutti i file: `index.html`, `manifest.json`, `sw.js`, `firebase-config.js` e le tre icone.
+3. Ricarica la pagina un paio di volte, poi usa il menu del browser: **Installa app** (Chrome, Edge, Samsung Internet) oppure **Aggiungi a schermata Home**.
+4. Dentro l’app: **Impostazioni → Guida → Problemi con l’installazione? → Controlla ora**. Elenca cosa manca.
+
+I requisiti sono: indirizzo https, manifest con nome, icone da 192 e 512 pixel, `start_url` e `display`, e un service worker con gestore `fetch`. Firefox su Android installa con meno funzioni; su iPhone si usa Safari con Condividi → Aggiungi alla schermata Home.
+
 ### Primo accesso
 
 1. Sul dispositivo che ha già i dati: dal vecchio file `Esporta` (rispondi OK per includere gli allegati), nell’app installata `Importa`.
@@ -117,12 +128,27 @@ Ad ogni modifica va aumentato il numero di `APP_VER` dentro `index.html`: è que
 
 I dati non si perdono negli aggiornamenti. Prima di modifiche importanti conviene comunque esportare un backup.
 
+## Notifiche e ripianificazione
+
+In **Impostazioni → Notifiche** si sceglie:
+
+- l’agenda del mattino, **all’alba** (predefinito) o a un’ora fissa: elenca le attività del giorno dalla più importante alla meno importante;
+- il riepilogo di fine giornata, **al tramonto** (predefinito) o a un’ora fissa: elenca le attività ancora da completare;
+- il promemoria serale, **alle 22:00** (predefinito), solo se restano attività da completare.
+
+Alba e tramonto si calcolano dalla posizione del dispositivo o dalla residenza del profilo; senza posizione si usano 07:00 e 18:00. L’ordine di importanza combina priorità, scadenza, ora fissa, rischio di non farcela e streak da proteggere.
+
+Ogni giorno le attività non giornaliere non completate vengono ripianificate nei giorni successivi della settimana. I giorni li decide Gemini, dopo aver analizzato minuti liberi, scadenze, priorità e festività; senza chiave API si usa un calcolo locale. Le proposte di Gemini vengono verificate (date valide, minuti disponibili) prima di essere applicate. Se non c’è spazio l’attività è segnalata **da valutare** e compare nella revisione di fine settimana. Le attività giornaliere ritornano da sole il giorno dopo.
+
+**Quando partono:** le notifiche partono mentre l’app è aperta o in esecuzione in background, e vengono recuperate se si apre l’app entro quattro ore dall’orario previsto. Ad app chiusa il sistema operativo non permette a un sito di programmare notifiche a un’ora precisa: per riceverle serve un servizio esterno che invii notifiche push, non incluso in questo repository.
+
 ## Privacy e sicurezza
 
 - I dati stanno nel browser del dispositivo (`localStorage`, gli allegati in `IndexedDB`) e, con la sincronizzazione, nel tuo progetto Firebase.
 - La configurazione web di Firebase (`apiKey` e simili) non è un segreto: è pensata per stare nel codice. La protezione dei dati è nelle regole di `firestore.rules`, per cui ogni account legge e scrive solo la propria area.
 - Quando usi il coach, obiettivi, statistiche e (se spuntato) allegati vengono inviati a Google.
 - La chiave Gemini non viene mai sincronizzata né esportata.
+- La ripianificazione con Gemini invia l’elenco delle attività da collocare, i minuti liberi di ogni giorno, le festività e, se consentito, i dati del profilo.
 - Il profilo si sincronizza con gli altri dati. Al coach Gemini arrivano solo età, residenza, lavoro, luoghi di interesse e note, e solo se lasci attiva la casella nel profilo.
 - Le festività vengono scaricate dal servizio pubblico gratuito [date.nager.at](https://date.nager.at) e salvate sul dispositivo.
 
@@ -132,6 +158,7 @@ I dati non si perdono negli aggiornamenti. Prima di modifiche importanti convien
 - Due modifiche simultanee alla stessa voce su dispositivi diversi: vince l’ultima.
 - Il dettato vocale non è disponibile su Firefox.
 - L’installazione non è stata provata su iOS.
+- Le notifiche non arrivano ad app chiusa senza un servizio push esterno; quelle ad app aperta o in background dipendono dai permessi e dal risparmio energetico del dispositivo.
 - La traduzione inglese copre l’interfaccia; i messaggi di conferma del browser restano in italiano. Le scorciatoie di inserimento rapido (`/g`, `/s`, `/m`, `/p`) non cambiano con la lingua.
 - Le festività importate sono quelle nazionali; quelle regionali o locali non vengono mostrate.
 

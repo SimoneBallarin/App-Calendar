@@ -4,7 +4,7 @@
  "description": "Obiettivi, impegni ed eventi con streak, fattibilità e coach Gemini",
  "lang": "it",
  "id": "obiettivi-dashboard",
- "start_url": "./index.html",
+ "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "background_color": "#f5f6f8",
@@ -36,7 +36,7 @@
   {
    "name": "Nuovo obiettivo",
    "short_name": "Nuovo",
-   "url": "./index.html#nuovo",
+   "url": "./#nuovo",
    "icons": [
     {
      "src": "icon-192.png",
@@ -47,7 +47,7 @@
   {
    "name": "Coach Gemini",
    "short_name": "Coach",
-   "url": "./index.html#coach",
+   "url": "./#coach",
    "icons": [
     {
      "src": "icon-192.png",

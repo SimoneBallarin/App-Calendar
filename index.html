@@ -90,9 +90,14 @@ nav .chips,#yn{display:flex;gap:6px;overflow-x:auto}nav .chips button,#yn button
 .sw{display:inline-flex;width:56px;height:28px;border-radius:99px;overflow:hidden;border:1px solid var(--ln2);padding:0;margin:0 6px 6px 0}.sw i{flex:1}
 .cl{max-height:230px;overflow:auto;border:1px solid var(--ln2);border-radius:10px;padding:4px 10px;margin-top:6px}.cl label{display:flex;gap:8px;align-items:center;margin:0;padding:5px 0;font-weight:400;color:var(--tx);font-size:14px}.cl input{width:auto;margin:0}
 .cg button.fe{color:var(--er)}.cg button.td.fe{color:var(--acf)}
-#upd{position:fixed;z-index:20;left:50%;bottom:20px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;max-width:92vw;padding:10px 12px 10px 16px;border-radius:14px;background:var(--tx);color:var(--bg);box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:14px;font-weight:500}
-#upd[hidden]{display:none}#upd button{padding:5px 12px;border-radius:9px;font-size:13px}#upd .ib{background:none;color:inherit;opacity:.7;padding:4px 8px}
-@media(max-width:860px){#upd{bottom:calc(92px + env(safe-area-inset-bottom))}}
+#upd,#und{position:fixed;z-index:20;left:50%;bottom:20px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;max-width:92vw;padding:10px 12px 10px 16px;border-radius:14px;background:var(--tx);color:var(--bg);box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:14px;font-weight:500}
+#upd[hidden],#und[hidden]{display:none}#upd button,#und button{padding:5px 12px;border-radius:9px;font-size:13px}#upd .ib{background:none;color:inherit;opacity:.7;padding:4px 8px}
+@media(max-width:860px){#upd,#und{bottom:calc(92px + env(safe-area-inset-bottom))}}
+.dng{color:var(--er);border-color:color-mix(in srgb,var(--er) 45%,var(--ln2))}#f_x{margin-right:auto}.kb{font-weight:700;letter-spacing:1px;padding:4px 8px}
+#mnu{position:fixed;z-index:30;min-width:150px;padding:4px;background:var(--cd);border:1px solid var(--ln2);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}#mnu[hidden]{display:none}
+#mnu button{display:block;width:100%;text-align:left;border:0;background:none;padding:9px 12px;border-radius:8px;color:var(--tx)}#mnu button:hover{background:color-mix(in srgb,var(--tx) 7%,transparent)}#mnu .dng{color:var(--er)}
+.ck2{display:flex;gap:8px;align-items:center;font-weight:400;color:var(--tx)}.ck2 input{width:auto;margin:0}
+details{border-top:1px solid var(--ln);padding:8px 0}details summary{cursor:pointer;font-weight:600}details p{margin:6px 0 2px;color:var(--mu);font-size:14px}code{background:color-mix(in srgb,var(--tx) 8%,transparent);padding:1px 5px;border-radius:6px;font-size:13px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body><div class=lay><nav><button class=me id=me><span class=av id=pav>?</span><span><b id=pnm>Profilo</b><span class=mu id=psb>Aggiungi i tuoi dati</span></span></button><div class=sh>Progetti</div><div class=chips id=ch></div><div class=sh>Parole chiave</div><div class=chips id=ct></div><div class=sh>Anni</div><div id=yn></div><div class=nf><button class=me id=bst><span class=av style="background:none;color:var(--mu);font-size:19px">⚙</span><b>Impostazioni</b></button><div class=mu id=ver style="padding:4px 10px 0"></div></div></nav><main>
 <header><h1>Oggi<span id=d0></span></h1><div class=hb><button id=bS>☁ Accedi</button> <button id=bA hidden>⬇ Installa app</button> <button id=bV></button> <button id=bG>✨ Coach Gemini</button> <button id=bR>Revisione settimanale</button> <button id=bE hidden>Esporta</button><button id=bI hidden>Importa</button> <button class=pr id=bN>+ Nuovo</button></div></header>
@@ -100,14 +105,15 @@ nav .chips,#yn{display:flex;gap:6px;overflow-x:auto}nav .chips button,#yn button
 <input id=sr type=search placeholder="Cerca (tasto /)"></div><div id=bn></div><div class=kp id=kp></div><div class=cd id=ld></div><div class=cd id=cl style="margin-top:12px"></div><div id=sc style="margin-top:12px"></div>
 <div class=g><div class=cd><h2>Attività delle ultime 4 settimane</h2><div class=hm id=hm></div><div class=mu style="margin-top:6px">Una riga è una settimana (lun-dom)</div></div><div class=cd><h2>Avanzamento per progetto</h2><div id=pr></div></div></div>
 </main></div>
+<div id=und hidden><span id=und_t></span> <button class=pr id=undb>Annulla</button></div><div id=mnu hidden><button data-a=edit>Modifica</button><button data-a=del class=dng>Elimina</button></div>
 <div id=upd hidden>🔄 Nuova versione disponibile <button class=pr id=updgo>Aggiorna</button><button class=ib id=updno title="Più tardi">✕</button></div>
 <datalist id=pl></datalist>
 <dialog id=dg><form id=fm><h3 id=dt></h3>
-<label>Titolo<input id=f_t required></label><div class=r2><label>Tipo<select id=f_y><option value=ob>Obiettivo<option value=im>Impegno<option value=ev>Evento</select></label><label>Ora (facoltativa)<input id=f_h type=time></label></div><label>Descrizione<textarea id=f_o rows=3 placeholder="Di cosa si tratta, cosa conta come fatto…"></textarea></label><label>Allegati (PDF, immagini, testi)</label><div id=f_a class=fz></div><div class=bt style="justify-content:flex-start;margin-top:8px"><button type=button id=f_ub>＋ Aggiungi file</button><button type=button id=f_cp>Copia contesto per un’altra AI</button><button type=button id=f_ai>✨ Pianifica con Gemini</button></div><input id=f_u type=file multiple hidden><label>Progetto<input id=f_p list=pl placeholder="es. Tesi, PLC, Lavoro"></label>
+<label>Titolo<input id=f_t required></label><div class=r2><label>Tipo<select id=f_y><option value=ob>Obiettivo<option value=im>Impegno<option value=ev>Evento</select></label><label>Ora (facoltativa)<input id=f_h type=time></label></div><label>Priorità<select id=f_pr><option value=1>Alta<option value=2>Media<option value=3>Bassa</select></label><label>Descrizione<textarea id=f_o rows=3 placeholder="Di cosa si tratta, cosa conta come fatto…"></textarea></label><label>Allegati (PDF, immagini, testi)</label><div id=f_a class=fz></div><div class=bt style="justify-content:flex-start;margin-top:8px"><button type=button id=f_ub>＋ Aggiungi file</button><button type=button id=f_cp>Copia contesto per un’altra AI</button><button type=button id=f_ai>✨ Pianifica con Gemini</button></div><input id=f_u type=file multiple hidden><label>Progetto<input id=f_p list=pl placeholder="es. Tesi, PLC, Lavoro"></label>
 <div class=r2><label>Frequenza<select id=f_f><option value=d>Giornaliero<option value=w>Settimanale<option value=m>Mensile<option value=o>Progetto con scadenza</select></label><label>Target (volte o unità)<input id=f_n type=number min=1 value=1></label></div>
 <div class=r2><label>Scadenza<input id=f_d type=date></label><label>Tempo per volta (min)<input id=f_e type=number min=1 value=30></label></div>
 <label>Parole chiave<input id=f_k placeholder="uni, studio, palestra…"></label><div id=f_ks class=chips style="margin-top:0"></div><div id=f_w class=days></div>
-<div class=bt><button type=button id=f_x>Elimina</button><button type=button onclick="dg.close()">Annulla</button><button class=pr>Salva</button></div></form></dialog>
+<div class=bt><button type=button id=f_x class=dng>🗑 Elimina attività</button><button type=button onclick="dg.close()">Annulla</button><button class=pr>Salva</button></div></form></dialog>
 <dialog id=gd style="max-width:580px"><h3>✨ Coach Gemini</h3>
 <details id=gs><summary>Chiave API e modello</summary><label>Chiave API (da Google AI Studio)<input id=gk type=password autocomplete=off></label><label>Modello<input id=gm placeholder="gemini-2.5-flash"></label><div class=mu id=gks></div><div class=bt style="justify-content:flex-start"><button type=button id=gx>Rimuovi chiave</button></div><div class=mu>La chiave resta salvata in questo browser, non viene mai esportata e su un altro dispositivo va reinserita una volta. Quando usi il coach, obiettivi e statistiche vengono inviati a Google.</div></details>
 <label>Cosa vuoi aggiungere o cambiare? (scrivi o detta)<textarea id=gt rows=4 placeholder="Es. Aggiungi l’esame di Controlli il 12 febbraio. Oppure: sposta la palestra al lunedì e togli gli integratori."></textarea></label><label style="display:flex;gap:6px;align-items:center"><input id=gf type=checkbox checked style="width:auto;margin:0"> Includi i file allegati (vengono inviati a Google)</label>
@@ -172,8 +178,8 @@ dls=r=>r.dd<0?`scaduto da ${-r.dd}g`:r.dd==0?'scade oggi':r.dd==1?'scade domani'
 function row(r){const g=r.g,ok=!r.need,u={d:'giorni',w:'sett.',m:'mesi'}[r.f]||'',[k,l]=lab(r.feas),dc=r.dd<0?'er':r.dd<=1&&!ok&&r.f!='d'?'wa':'';
  return `<div class="rw ${ok?'dn':''}"><button class="ck${ok?' ok':''}" style="--p:${Math.min(100,100*r.done/Math.max(1,r.t))}" onclick="bump('${g.id}',1)" title="Segna +1">${ok?'✓':r.t>1?r.done:''}</button><div><span class=tt onclick="ed('${g.id}')">${IC[g.ty||'ob']} ${esc(g.title)}</span> ${g.p?`<span class=pj style="color:${col(g.p)}">#${esc(g.p)}</span>`:''}
 ${g.note?`<div class=mu>${esc(g.note)}</div>`:''}<div class=bar><i style="width:${Math.min(100,100*r.done/Math.max(1,r.t))}%"></i></div>
-<span class=ch>${r.done}/${r.t}</span>${g.lt?`<span class=ch>↳ ${esc(g.lt)}</span>`:''}${(g.fl||[]).length?`<span class=ch title="File allegati">📎 ${g.fl.length}</span>`:''}<span class=ch title="Tempo che occupa in una giornata">⏱ ${dur(g.est||30)}${r.f=='d'&&r.t>1?' × '+r.t:''}</span>${((o)=>o.n?`<span class="ch ${o.s>(g.est||30)*o.n*1.25?'wa':'ok'}" title="Tempo reale registrato oggi">reale ${dur(o.s)}</span>`:'')(sp(g,iso(T0)))}${(g.k||[]).map(k=>`<span class=ch data-k="${esc(k)}" style="cursor:pointer">${esc(k)}</span>`).join('')}<span class="ch ${ok?'':dc}">${r.e?dls(r)+' · '+fd(r.e)+(g.hr?' · '+g.hr:''):'senza scadenza'}</span>${ok?'<span class="ch ok">fatto</span>':r.e&&g.ty!='ev'?`<span class="ch ${k}" title="Calcolato da ritmo richiesto, affidabilità storica e carico totale">${r.feas}% ${l}</span>`:''}${r.f!='o'&&(r.cur||r.best)?`<span class=ch title="Record ${r.best} ${u}">🔥 ${r.cur} ${u}</span>`:''}</div>
-<span class=ra><button class=ib title="Registra il tempo reale" onclick="ot('${g.id}')">⏱</button><button class=ib title="Annulla l’ultimo" onclick="bump('${g.id}',-1)" ${g.log[iso(T0)]?'':'hidden'}>↶</button></span></div>`}
+<span class=ch>${r.done}/${r.t}</span>${g.lt?`<span class=ch>↳ ${esc(g.lt)}</span>`:''}${(g.fl||[]).length?`<span class=ch title="File allegati">📎 ${g.fl.length}</span>`:''}${g.nf?`<span class="ch er" title="${esc(g.nf)}">${T2('⚠ da valutare','⚠ to review')}</span>`:''}${(g.pl||[]).length&&r.f!='d'?`<span class=ch title="${T2('Giorni pianificati','Planned days')}">📌 ${[...new Set(g.pl)].sort().slice(0,4).map(d=>fd(P(d),{weekday:'short',day:'numeric'})).join(', ')}</span>`:''}<span class=ch title="Tempo che occupa in una giornata">⏱ ${dur(g.est||30)}${r.f=='d'&&r.t>1?' × '+r.t:''}</span>${((o)=>o.n?`<span class="ch ${o.s>(g.est||30)*o.n*1.25?'wa':'ok'}" title="Tempo reale registrato oggi">reale ${dur(o.s)}</span>`:'')(sp(g,iso(T0)))}${(g.k||[]).map(k=>`<span class=ch data-k="${esc(k)}" style="cursor:pointer">${esc(k)}</span>`).join('')}<span class="ch ${ok?'':dc}">${r.e?dls(r)+' · '+fd(r.e)+(g.hr?' · '+g.hr:''):'senza scadenza'}</span>${ok?'<span class="ch ok">fatto</span>':r.e&&g.ty!='ev'?`<span class="ch ${k}" title="Calcolato da ritmo richiesto, affidabilità storica e carico totale">${r.feas}% ${l}</span>`:''}${r.f!='o'&&(r.cur||r.best)?`<span class=ch title="Record ${r.best} ${u}">🔥 ${r.cur} ${u}</span>`:''}</div>
+<span class=ra><button class=ib title="Registra il tempo reale" onclick="ot('${g.id}')">⏱</button><button class=ib title="Annulla l’ultimo" onclick="bump('${g.id}',-1)" ${g.log[iso(T0)]?'':'hidden'}>↶</button></span><button class="ib kb" data-mn="${g.id}" title="Altro">⋯</button></div>`}
 function rvInfo(T){const nxt=(T.getDay()+6)%7>=5,tw=nxt?add(mon(T),7):mon(T);return{nxt,tw,k:iso(tw),rs:nxt?mon(T):add(mon(T),-7)}}
 function render(){T0=today();document.body.classList.toggle('cmp',!!S.cmp);bV.textContent=S.cmp?'Vista: compatta':'Vista: estesa';profUi();const T=T0,cap=S.cap||240,L=S.goals.filter(g=>live(g,T)).map(g=>info(g,T)),
  load=L.reduce((a,r)=>a+r.m,0),sc=load>cap?cap/load:1;
@@ -194,7 +200,7 @@ function render(){T0=today();document.body.classList.toggle('cmp',!!S.cmp);bV.te
  $('#ct').innerHTML=tk.length?['',...tk].map(k=>`<button data-t="${esc(k)}" class="${(S.tag||'')==k?'on':''}" title="Tempo medio al giorno richiesto">${k?`<span>${esc(k)}</span><small>${dur(Math.round(tm[k]||0))}</small>`:'Tutte le parole chiave'}</button>`).join(''):'';
  const V=L.filter(mt),near=V.filter(r=>r.f!='d'&&r.need&&r.dd!=null&&r.dd<=2).sort((a,b)=>a.dd-b.dd),
  sec=[['d','☀️ Oggi'],['w','📅 Questa settimana'],['m','🗓️ Questo mese'],['o','🚩 Lungo termine e scadenze'],['e','📅 Eventi e impegni']];
- $('#sc').innerHTML=!S.goals.length?'<div class=cd>Nessun obiettivo per ora. Scrivi nella barra qui sopra e premi Invio.</div>':(near.length?`<div class="cd bn"><h2>⏰ Scadenze vicine</h2>${near.map(row).join('')}</div>`:'')+'<div class=g>'+sec.map(([f,t])=>{const a=V.filter(r=>sk(r)==f).sort((a,b)=>(!a.need)-(!b.need)||(a.dd??999)-(b.dd??999));return a.length?`<div class=cd><h2>${t}${f=='d'?' · ⏱ '+dur(a.reduce((x,r)=>x+(r.g.est||30)*r.t,0)):''}</h2>${a.map(row).join('')}</div>`:''}).join('')+'</div>';
+ const ag=new Set(V.filter(r=>inAg(r,iso(T))));$('#sc').innerHTML=!S.goals.length?'<div class=cd>Nessun obiettivo per ora. Scrivi nella barra qui sopra e premi Invio.</div>':(near.length?`<div class="cd bn"><h2>⏰ Scadenze vicine</h2>${near.map(row).join('')}</div>`:'')+'<div class=g>'+sec.map(([f,t])=>{const a=(f=='d'?V.filter(r=>ag.has(r)):V.filter(r=>sk(r)==f&&!ag.has(r))).sort(f=='d'?byAg:(a,b)=>(!a.need)-(!b.need)||(a.dd??999)-(b.dd??999));return a.length?`<div class=cd><h2>${t}${f=='d'?' · ⏱ '+dur(a.reduce((x,r)=>x+(r.g.est||30)*(r.f=='d'?r.t:1),0)):''}</h2>${a.map(row).join('')}</div>`:''}).join('')+'</div>';
  const m0=add(mon(T),-21);$('#hm').innerHTML=Array.from({length:28},(_,i)=>{const d=add(m0,i),n=S.goals.reduce((a,g)=>a+(g.log[iso(d)]||0),0);return`<i title="${fd(d)}: ${n} fatti" style="opacity:${d>T?.05:n?Math.min(1,.3+n*.2):.12}"></i>`}).join('');
  const pp={};L.forEach(r=>{const k=r.g.p||'Senza progetto',o=pp[k]||(pp[k]={a:0,b:0});o.a+=Math.min(r.done,r.t);o.b+=r.t});
  $('#pr').innerHTML=Object.entries(pp).map(([k,o])=>{const v=Math.round(100*o.a/Math.max(1,o.b));return`<div style="margin-bottom:8px"><span class=pj style="color:${col(k)}">${esc(k)}</span> <span class=mu>${v}%</span><div class=bar><i style="width:${v}%;background:${col(k)}"></i></div></div>`}).join('')||'<span class=mu>—</span>';cal()}
@@ -204,7 +210,7 @@ function quick(x){const T=today();let ex=0,g={id:uid(),f:'d',t:1,est:30,c:iso(T)
  x=x.replace(/(?:^|\s)\+([\p{L}\d_-]+)/gu,(_,a)=>(g.k.push(a.toLowerCase()),' ')).replace(/#(\S+)/,(_,a)=>(g.p=a.replace(/_/g,' '),''))
   .replace(/\s\/([gsmpei])(?=\s|$)/gi,(_,a)=>{a=a.toLowerCase();if(a=='e')g.ty='ev',g.f='o',ex=1;else if(a=='i')g.ty='im';else g.f={g:'d',s:'w',m:'m',p:'o'}[a],ex=1;return''})
   .replace(/\sx(\d+)(?=\s|$)/i,(_,a)=>(g.t=+a,''))
-  .replace(/~(\d+)/,(_,a)=>(g.est=+a,''))
+  .replace(/\s!([123])(?=\s|$)/,(_,a)=>(g.pr=+a,'')).replace(/~(\d+)/,(_,a)=>(g.est=+a,''))
   .replace(/@(\d{4}-\d{2}-\d{2})/,(_,a)=>(g.dl=a,''))
   .replace(/@(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/,(_,d,m,y)=>{let Y=y?(+y<100?2000+ +y:+y):T.getFullYear(),t=new Date(Y,m-1,d);if(!y&&t<T)t=new Date(Y+1,m-1,d);g.dl=iso(t);return''});
  if(g.dl&&!ex)g.f='o';g.title=x.replace(/\s+/g,' ').trim();return g.title?g:null}
@@ -212,16 +218,16 @@ const sw=()=>$('#f_w').style.display=f_f.value=='d'?'':'none';
 function ed(id){cur=S.goals.find(g=>g.id==id)||null;const g=cur||{f:'d',t:1,est:30};
  $('#dt').textContent=cur?'Modifica obiettivo':'Nuovo obiettivo';f_t.value=g.title||'';f_p.value=g.p||'';f_f.value=g.f;f_n.value=g.t;f_d.value=g.dl||'';f_e.value=g.est||30;
  $('#f_w').innerHTML=WD().map(x=>x[0]).map((x,i)=>`<label><input type=checkbox ${!g.days||g.days[i]?'checked':''}>${x}</label>`).join('');
- f_x.hidden=!cur;sw();f_k.value=(g.k||[]).join(', ');f_y.value=g.ty||'ob';f_h.value=g.hr||'';f_o.value=g.note||'';AF=(g.fl||[]).map(x=>({...x}));AR=[];f_cp.textContent='Copia contesto per un’altra AI';fls();f_ks.innerHTML=allTags().map(t=>`<button type=button data-t="${esc(t)}">${esc(t)}</button>`).join('');ft();dg.showModal()}
+ f_x.hidden=!cur;sw();f_k.value=(g.k||[]).join(', ');f_y.value=g.ty||'ob';f_h.value=g.hr||'';f_pr.value=g.pr||2;f_o.value=g.note||'';AF=(g.fl||[]).map(x=>({...x}));AR=[];f_cp.textContent='Copia contesto per un’altra AI';fls();f_ks.innerHTML=allTags().map(t=>`<button type=button data-t="${esc(t)}">${esc(t)}</button>`).join('');ft();dg.showModal()}
 function rv(){const T=today(),R=rvInfo(T),W=S.goals.filter(g=>g.f=='w'&&!(g.dl&&P(g.dl)<R.tw)),e=add(R.rs,6),
  rec=S.goals.filter(g=>g.f=='w'&&g.c<=iso(e)).map(g=>{const d=doneIn(g,R.rs,e),t=tg(g,R.rs);return`<div>${d>=t?'✅':'❌'} ${esc(g.title)} <span class=mu>${d}/${t}</span></div>`}).join('')||'<span class=mu>Nessun obiettivo settimanale.</span>';
- $('#rb').innerHTML=`<h3>Revisione: settimana dal ${fd(R.tw,{day:'numeric',month:'long'})}</h3><h2>Com’è andata la settimana dal ${fd(R.rs,{day:'numeric',month:'short'})}</h2>${rec}${tr()}<h2 style="margin-top:12px">Target per la prossima settimana (0 = pausa)</h2>`+W.map(g=>`<label>${esc(g.title)}<input type=number min=0 data-id=${g.id} value=${tg(g,R.tw)}></label>`).join('')+`<label>Nuovo obiettivo solo per quella settimana<input id=rn placeholder="Es. Rifare il CV #Lavoro x2"></label>`;rvd.showModal()}
+ $('#rb').innerHTML=`<h3>Revisione: settimana dal ${fd(R.tw,{day:'numeric',month:'long'})}</h3><h2>Com’è andata la settimana dal ${fd(R.rs,{day:'numeric',month:'short'})}</h2>${rec}${nfList()}${tr()}<h2 style="margin-top:12px">Target per la prossima settimana (0 = pausa)</h2>`+W.map(g=>`<label>${esc(g.title)}<input type=number min=0 data-id=${g.id} value=${tg(g,R.tw)}></label>`).join('')+`<label>Nuovo obiettivo solo per quella settimana<input id=rn placeholder="Es. Rifare il CV #Lavoro x2"></label>`;rvd.showModal()}
 fm.onsubmit=async e=>{e.preventDefault();const g=cur||{id:uid(),c:iso(today()),log:{}};
- Object.assign(g,{title:f_t.value.trim(),p:f_p.value.trim(),f:f_f.value,t:Math.max(1,+f_n.value||1),dl:f_d.value||'',est:+f_e.value||30,k:pt(f_k.value),ty:f_y.value,hr:f_h.value,note:f_o.value.trim(),days:f_f.value=='d'?[...f_w.querySelectorAll('input')].map(x=>x.checked):null});
+ Object.assign(g,{title:f_t.value.trim(),p:f_p.value.trim(),f:f_f.value,t:Math.max(1,+f_n.value||1),dl:f_d.value||'',est:+f_e.value||30,k:pt(f_k.value),ty:f_y.value,hr:f_h.value,pr:+f_pr.value,note:f_o.value.trim(),days:f_f.value=='d'?[...f_w.querySelectorAll('input')].map(x=>x.checked):null});
  if(!cur)S.goals.push(g);g.fl=AF.map(({blob,...m})=>m);
  try{await Promise.all([...AF.filter(f=>f.blob).map(f=>fput(f.id,f.blob)),...AR.map(fdel)])}catch(x){alert('Non riesco a salvare i file in questo browser: '+x.message)}
  dg.close();save();render()};
-f_x.onclick=()=>{if(confirm('Eliminare questo obiettivo e il suo storico?')){(cur.fl||[]).forEach(f=>fdel(f.id).catch(()=>0));S.goals=S.goals.filter(g=>g!=cur);dg.close();save();render()}};
+f_x.onclick=()=>{dg.close();delGoal(cur.id)};
 rs.onclick=()=>{const R=rvInfo(today());rb.querySelectorAll('input[data-id]').forEach(i=>{const g=S.goals.find(g=>g.id==i.dataset.id);(g.ov=g.ov||{})[iso(R.tw)]=Math.max(0,+i.value)});
  const q=rn.value.trim(),g=q&&quick(q);if(g){g.f='w';g.dl=iso(add(R.tw,6));g.c=iso(R.tw);S.goals.push(g)}
  S.rev=R.k;rvd.close();save();render()};
@@ -270,7 +276,7 @@ gd.addEventListener('close',()=>{FOCUS=''});
 const APPV='2026-10-28',SKEY='dash_sync_v1',FBV='10.11.1',
 loadJs=src=>new Promise((ok,ko)=>{const e=document.createElement('script');e.src=src;e.onload=ok;e.onerror=()=>ko(Error('Impossibile caricare i moduli Google (sei offline?)'));document.head.appendChild(e)}),
 hsh=o=>{const t=JSON.stringify(o);let h=5381;for(let i=0;i<t.length;i++)h=(h*33^t.charCodeAt(i))>>>0;return h+'.'+t.length},
-mset=()=>({cap:S.cap||240,rev:S.rev||'',gm:S.gm||'',ye:S.ye||[],prof:S.prof||{},lang:S.lang||'it',hc:S.hc||[],hon:S.hon!==false}),
+mset=()=>({cap:S.cap||240,rev:S.rev||'',gm:S.gm||'',ye:S.ye||[],prof:S.prof||{},lang:S.lang||'it',hc:S.hc||[],hon:S.hon!==false,nt:S.nt||null,rd:S.rd||''}),
 fbCfg=()=>{if(window.FIREBASE_CONFIG&&window.FIREBASE_CONFIG.apiKey)return window.FIREBASE_CONFIG;try{return JSON.parse(localStorage.getItem('dash_fb_cfg'))}catch(e){return null}},
 sSave=()=>{try{localStorage.setItem(SKEY,JSON.stringify(SY))}catch(e){}},
 uref=()=>FBD.collection('users').doc(FBU.uid),
@@ -360,13 +366,13 @@ async function holUi(){stb.innerHTML='<p class=mu>Caricamento dei paesi…</p>';
 /* ===== Impostazioni ===== */
 const PRE=[['Oceano','#eaf2f8','#0b6fa4'],['Foresta','#edf3ee','#2f7d4f'],['Tramonto','#fbf0e8','#d9480f'],['Lavanda','#f1eefb','#6741d9'],['Grafite','#15181d','#38bdf8'],['Notte','#140f24','#a78bfa']];
 let STAB='th';
-function stgUi(){stt.innerHTML=[['th','Aspetto'],['lg','Lingua'],['hl','Festività'],['dt','Dati']].map(([k,t])=>`<button data-k=${k} class="${k==STAB?'on':''}">${t}</button>`).join('');
+function stgUi(){stt.innerHTML=[['th','Aspetto'],['lg','Lingua'],['hl','Festività'],['nt','Notifiche'],['dt','Dati'],['gd','Guida']].map(([k,t])=>`<button data-k=${k} class="${k==STAB?'on':''}">${t}</button>`).join('');
  const th=S.th||{m:'auto'};let h='';
  if(STAB=='th')h=`<label>Tema<select id=th_m><option value=auto>Automatico (segue il sistema)<option value=light>Chiaro<option value=dark>Scuro<option value=custom>Personalizzato (due colori)</select></label><div id=th_c${th.m=='custom'?'':' hidden'}><div class=r2><label>Colore di sfondo<input type=color id=th_b value="${th.bg||'#f5f6f8'}" style="height:42px;padding:3px"></label><label>Colore principale<input type=color id=th_a value="${th.ac||'#0f766e'}" style="height:42px;padding:3px"></label></div><label>Coppie pronte</label>${PRE.map((p,i)=>`<button type=button class=sw data-i=${i} title="${p[0]}"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></button>`).join('')}</div>`;
  else if(STAB=='lg')h=`<label>Lingua dell’interfaccia<select id=lg_s><option value=it>Italiano<option value=en>English</select></label><p class=mu>Cambia testi, date e calendario. Il coach Gemini risponde nella lingua scelta.</p>`;
- else if(STAB=='dt')h=`<p class=mu>Backup completo dei tuoi dati in un file JSON, oppure ripristino da un backup.</p><div class=bt style="justify-content:flex-start"><button id=dt_e>Esporta backup</button><button id=dt_i>Importa backup</button></div><p class=mu>Se sei connesso con Google, importare un backup sostituisce i dati su tutti i dispositivi.</p>`;
+ else if(STAB=='nt')h=ntHtml();else if(STAB=='gd')h=GUIDE[S.lang||'it'];else if(STAB=='dt')h=`<p class=mu>Backup completo dei tuoi dati in un file JSON, oppure ripristino da un backup.</p><div class=bt style="justify-content:flex-start"><button id=dt_e>Esporta backup</button><button id=dt_i>Importa backup</button></div><p class=mu>Se sei connesso con Google, importare un backup sostituisce i dati su tutti i dispositivi.</p>`;
  if(STAB!='hl')stb.innerHTML=h;
- if(STAB=='th')$id('th_m').value=th.m||'auto';if(STAB=='lg')$id('lg_s').value=S.lang||'it';if(STAB=='hl')holUi()}
+ if(STAB=='th')$id('th_m').value=th.m||'auto';if(STAB=='lg')$id('lg_s').value=S.lang||'it';if(STAB=='hl')holUi();if(STAB=='nt')ntInit()}
 stt.onclick=e=>{const b=e.target.closest('button');if(b){STAB=b.dataset.k;stgUi()}};
 stb.onchange=e=>{const t=e.target;
  if(t.id=='th_m'){S.th={...(S.th||{}),m:t.value};if(t.value=='custom'){S.th.bg=S.th.bg||'#f5f6f8';S.th.ac=S.th.ac||'#0f766e'}applyTheme(S.th);save();stgUi()}
@@ -383,7 +389,7 @@ stb.onclick=async e=>{const b=e.target.closest('button');if(!b)return;
 bst.onclick=()=>{STAB='th';stg.showModal();stgUi()};
 /* ===== Lingua ===== */
 const EN={
-'Oggi':'Today','☁ Accedi':'☁ Sign in','☁ Sync attiva':'☁ Sync on','☁ Errore sync':'☁ Sync error','⬇ Installa app':'⬇ Install app','Vista: estesa':'View: full','Vista: compatta':'View: compact','✨ Coach Gemini':'✨ Gemini coach','Revisione settimanale':'Weekly review','+ Nuovo':'+ New','Esporta':'Export','Importa':'Import','Cerca (tasto /)':'Search (press /)',
+'Priorità':'Priority','Alta':'High','Media':'Medium','Bassa':'Low','🗑 Elimina attività':'🗑 Delete activity','Altro':'More','Notifiche':'Notifications','Guida':'Guide','Oggi':'Today','☁ Accedi':'☁ Sign in','☁ Sync attiva':'☁ Sync on','☁ Errore sync':'☁ Sync error','⬇ Installa app':'⬇ Install app','Vista: estesa':'View: full','Vista: compatta':'View: compact','✨ Coach Gemini':'✨ Gemini coach','Revisione settimanale':'Weekly review','+ Nuovo':'+ New','Esporta':'Export','Importa':'Import','Cerca (tasto /)':'Search (press /)',
 '🔄 Nuova versione disponibile':'🔄 New version available','Aggiorna':'Update','Più tardi':'Later','Apri':'Open',
 'Profilo':'Profile','Aggiungi i tuoi dati':'Add your details','Modifica il profilo':'Edit profile','Progetti':'Projects','Parole chiave':'Keywords','Anni':'Years','Tutti i progetti':'All projects','Tutte le parole chiave':'All keywords','＋ Aggiungi anno':'＋ Add year','Aggiungi un anno':'Add a year','oggi':'today','Impostazioni':'Settings',
 'giornalieri fatti':'daily done','Settimana':'Week','obiettivi settimanali':'weekly goals','Mese':'Month','obiettivi mensili':'monthly goals','Streak migliore':'Best streak','ancora nessuna':'none yet','Affidabilità':'Reliability','negli ultimi periodi':'in recent periods','Stime vs reale':'Estimate vs actual','tempo reale sul previsto':'actual vs planned time',
@@ -450,6 +456,179 @@ function trTree(n){const en=(S.lang||'it')=='en';if(n.nodeType==3){tt(n,en);retu
  [n,...n.querySelectorAll('[placeholder],[title]')].forEach(e=>ta(e,en))}
 function applyLang(){document.documentElement.lang=S.lang||'it';trTree(document.body)}
 new MutationObserver(ms=>{if((S.lang||'it')!='en')return;ms.forEach(m=>m.addedNodes.forEach(trTree))}).observe(document.body,{childList:true,subtree:true});
+
+/* ===== Agenda, priorità, notifiche, pianificazione, guida ===== */
+const T2=(a,b)=>(S.lang||'it')=='en'?b:a;
+const calcL=()=>{T0=today();const cap=S.cap||240,L=S.goals.filter(g=>live(g,T0)).map(g=>info(g,T0)),ld=L.reduce((a,r)=>a+r.m,0),sc=Math.min(1,cap/ld);L.forEach(r=>r.feas=r.need?Math.round(100*r.pace*(.5+.5*r.h)*sc):100);return L},
+isEv=g=>g.ty&&g.ty!='ob',
+inAg=(r,k)=>r.f=='d'||(r.need>0&&(r.g.dl==k||(r.g.pl||[]).includes(k)))||(isEv(r.g)&&r.g.dl==k),
+isDone=r=>!r.need||((r.g.pl||[]).includes(iso(T0))&&(r.g.log[iso(T0)]||0)>0&&r.g.dl!=iso(T0)),
+imp=r=>{const g=r.g;let s=({1:40,2:20,3:0})[g.pr||2];if(isEv(g)&&g.dl==iso(T0)&&g.hr)s+=30;
+ if(r.dd!=null&&r.f!='d')s+=r.dd<0?50:r.dd==0?35:r.dd==1?25:r.dd<=3?15:r.dd<=7?8:0;
+ if(r.need&&r.feas<40)s+=15;if(r.f=='d'&&r.cur>=3&&r.need)s+=Math.min(r.cur,10);if((g.pl||[]).includes(iso(T0)))s+=10;return s},
+byImp=(a,b)=>imp(b)-imp(a)||(a.g.hr||'99').localeCompare(b.g.hr||'99')||a.g.title.localeCompare(b.g.title),
+byAg=(a,b)=>isDone(a)-isDone(b)||byImp(a,b);
+/* menu ⋯ ed eliminazione con annulla */
+let UT=0,UX=null,MID='';
+function toast(m,lab,fn,done){clearTimeout(UT);if(UX){UX();UX=null}und_t.textContent=m;undb.hidden=!lab;undb.textContent=lab||'';undb.onclick=()=>{clearTimeout(UT);UX=null;und.hidden=true;fn&&fn()};UX=done||null;und.hidden=false;UT=setTimeout(()=>{und.hidden=true;if(UX){UX();UX=null}},9000)}
+function delGoal(id){const i=S.goals.findIndex(g=>g.id==id);if(i<0)return;const g=S.goals.splice(i,1)[0];save();render();
+ toast(T2('Attività eliminata: ','Activity deleted: ')+g.title,T2('Annulla','Undo'),()=>{S.goals.splice(Math.min(i,S.goals.length),0,g);save();render()},()=>(g.fl||[]).forEach(f=>fdel(f.id).catch(()=>0)))}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-mn]');
+ if(b){MID=b.dataset.mn;const r=b.getBoundingClientRect();mnu.hidden=false;mnu.style.top=Math.min(r.bottom+4,innerHeight-100)+'px';mnu.style.left=Math.max(8,r.right-mnu.offsetWidth)+'px';return}
+ const a=e.target.closest('#mnu [data-a]');if(a){mnu.hidden=true;if(a.dataset.a=='edit')ed(MID);else delGoal(MID);return}
+ mnu.hidden=true});
+/* alba e tramonto */
+function sunTimes(D,lat,lon){if(!isFinite(lat)||!isFinite(lon)||lat==null||lon==null)return null;const r=Math.PI/180,
+ n=Math.ceil(Date.UTC(D.getFullYear(),D.getMonth(),D.getDate())/864e5+2440587.5-2451545+.0008),Js=n-lon/360,M=(357.5291+.98560028*Js)%360,
+ C=1.9148*Math.sin(M*r)+.02*Math.sin(2*M*r)+.0003*Math.sin(3*M*r),L=(M+C+180+102.9372)%360,Jt=2451545+Js+.0053*Math.sin(M*r)-.0069*Math.sin(2*L*r),
+ dec=Math.asin(Math.sin(L*r)*Math.sin(23.4397*r)),c=(Math.sin(-.833*r)-Math.sin(lat*r)*Math.sin(dec))/(Math.cos(lat*r)*Math.cos(dec));
+ if(c<-1||c>1)return null;const w=Math.acos(c)/r,f=j=>new Date((j-2440587.5)*864e5);return{sr:f(Jt-w/360),ss:f(Jt+w/360)}}
+/* notifiche */
+const NSK='dash_nt_v1';let NS={};try{NS=JSON.parse(localStorage.getItem(NSK))||{}}catch(e){}
+const nsSave=()=>{try{localStorage.setItem(NSK,JSON.stringify(NS))}catch(e){}},
+NTD={on:false,m:{k:'sun',t:'07:00'},e:{k:'sun',t:'18:00'},l:{on:true,t:'22:00'},roll:true,gem:true},NT=()=>({...NTD,...(S.nt||{})}),
+at=(D,t)=>{const[h,m]=t.split(':'),d=new Date(D);d.setHours(+h,+m,0,0);return d},
+hhm=d=>d.toLocaleTimeString(LC(),{hour:'2-digit',minute:'2-digit'}),
+ntTimes=D=>{const n=NT(),s=sunTimes(D,n.lat,n.lon);return{m:n.m.k=='fix'||!s?at(D,n.m.t):s.sr,e:n.e.k=='fix'||!s?at(D,n.e.t):s.ss,l:at(D,n.l.t)}};
+function brief(c){const L=calcL(),A=L.filter(r=>inAg(r,iso(T0))).sort(byImp),rem=A.filter(r=>!isDone(r)),nf=S.goals.filter(g=>g.nf).length,h=holMap()[iso(T0)]||[],
+ ln=(r,i)=>`${i+1}. ${r.g.title}${r.g.hr?' · '+r.g.hr:''} · ${dur(r.g.est||30)}${r.f!='d'&&r.dd!=null&&r.dd<0?' ⚠':''}`,
+ ls=a=>a.slice(0,8).map(ln).join('\n')+(a.length>8?'\n+'+(a.length-8)+T2(' altre',' more'):''),
+ tail=nf?'\n⚠ '+nf+T2(' da valutare a fine settimana',' to review at the weekly review'):'';
+ if(c=='m'){if(!A.length)return null;return[T2('Buongiorno · ','Good morning · ')+A.length+T2(' attività oggi',' activities today'),(h.length?'🎌 '+h.map(x=>x.n).join(', ')+'\n':'')+ls(A)+tail]}
+ if(!rem.length)return null;
+ return[c=='e'?rem.length+T2(' attività da completare',' activities left to complete'):T2('Promemoria delle ','Reminder at ')+hhm(ntTimes(T0).l)+' · '+rem.length+T2(' da completare',' left'),ls(rem)+tail]}
+async function showNote(t,b,tag){const o={body:b,tag,icon:'icon-192.png',badge:'icon-192.png',lang:S.lang||'it'};
+ try{const r=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration();if(r)return await r.showNotification(t,o)}catch(e){}
+ try{new Notification(t,o)}catch(e){}}
+async function fire(c,force){const b=brief(c);if(!force){NS[c]=1;nsSave()}
+ if(!b){if(force)toast(T2('Nessuna attività da mostrare.','Nothing to show.'));return}
+ if(!('Notification' in window)||Notification.permission!='granted'){if(force)toast(T2('Consenti prima le notifiche.','Allow notifications first.'));return}
+ await showNote(b[0],b[1],'ob-'+c+'-'+iso(T0))}
+function ntTick(){const n=NT();if(!n.on||!('Notification' in window)||Notification.permission!='granted')return;
+ const now=new Date(),k=iso(today());if(NS.d!=k){NS={d:k};nsSave()}
+ const t=ntTimes(today());for(const[c,d,on]of[['m',t.m,1],['e',t.e,1],['l',t.l,n.l.on]]){if(!on||NS[c])continue;if(now>=d&&now<new Date(+d+144e5))fire(c)}}
+const ntGeo=()=>new Promise((ok,ko)=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>ok([p.coords.latitude,p.coords.longitude]),e=>ko(Error(e.message)),{timeout:15000}):ko(Error('n/d')));
+async function ntRes(){const p=(S.prof&&S.prof.r||'').trim();if(!p)throw Error(T2('imposta prima la residenza nel profilo','set your residence in the profile first'));
+ const q=p.split(',')[0].trim(),c=(p.split(',')[1]||'').trim().toLowerCase(),r=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(q)+'&count=5&language='+(S.lang||'it')+'&format=json');
+ if(!r.ok)throw Error('HTTP '+r.status);const a=(await r.json()).results||[];if(!a.length)throw Error(T2('luogo non trovato','place not found'));
+ const m=a.find(x=>c&&(x.country||'').toLowerCase().startsWith(c.slice(0,4)))||a[0];return[m.latitude,m.longitude]}
+/* pianificazione e ripianificazione */
+const PSYS='Sei il pianificatore di una dashboard di obiettivi. Ricevi i prossimi giorni con i minuti liberi di ciascuno e le attività non completate da ripianificare. Assegna ogni sessione a un giorno rispettando: i minuti liberi, una sola sessione al giorno per le attività settimanali e mensili (i progetti possono averne più d’una nello stesso giorno), la scadenza, la priorità (1 alta, 3 bassa) e un carico equilibrato; evita i giorni festivi per le attività poco urgenti. Se non riesci a collocare tutte le sessioni di un’attività, indicala tra i non fattibili con un motivo breve. Rispondi SOLO con JSON: {"sintesi":"max 2 frasi","piano":[{"id":"","date":["YYYY-MM-DD"],"perche":"max 80 caratteri"}],"non_fattibili":[{"id":"","motivo":"max 100 caratteri"}]}. Scrivi in italiano.';
+const hzDays=()=>{const t=today(),n=7-((t.getDay()+6)%7);return Array.from({length:n},(_,i)=>add(t,i))},
+dayLoad=D=>{const k=iso(D);let m=0;for(const g of S.goals){if(!live(g,D))continue;if(g.f=='d')m+=(g.est||30)*g.t;else if(isEv(g)&&g.dl==k)m+=g.est||30}return m},
+want=(r,hz)=>{const g=r.g;if(!r.need||r.f=='d'||isEv(g))return 0;const left=hz.length;
+ if(r.f=='w')return Math.min(r.need,left);
+ if(r.f=='m'){const dl=Math.round((pe('m',ps('m',hz[0]))-hz[0])/864e5)+1;return Math.min(r.need,Math.max(1,Math.ceil(r.need*left/dl)))}
+ const sl=r.dd==null?Math.max(left,7):Math.max(1,r.dd+1);return Math.min(r.need,Math.max(1,Math.ceil(r.need*left/sl)))};
+function place(r,hz,free,have,w){const g=r.g,E=g.est||30,lim=g.dl&&P(g.dl)<hz[hz.length-1]?P(g.dl):hz[hz.length-1],days=have.map(k=>hz.findIndex(D=>iso(D)==k));
+ while(days.length<w){let b=-1;for(let i=0;i<hz.length;i++){if(hz[i]>lim)break;if(r.f!='o'&&(days.includes(i)||(g.log[iso(hz[i])]||0)>0))continue;if(free[i]>=E&&(b<0||free[i]>free[b]))b=i}if(b<0)break;free[b]-=E;days.push(b)}
+ return days.sort((a,b)=>a-b).map(i=>iso(hz[i]))}
+const noRoom=n=>T2(n+' sessioni senza spazio nei prossimi giorni',n+' sessions without room in the coming days');
+function planLocal(items,hz){const free=hz.map(D=>(S.cap||240)-dayLoad(D)),out={},nf={};
+ for(const r of items.slice().sort(byImp)){const w=want(r,hz);out[r.g.id]=place(r,hz,free,[],w);if(out[r.g.id].length<w)nf[r.g.id]=noRoom(w-out[r.g.id].length)}return{out,nf}}
+async function planGem(items,hz){const free=hz.map(D=>(S.cap||240)-dayLoad(D)),hol=holMap(),
+ days=hz.map((D,i)=>({data:iso(D),minuti_liberi:Math.max(0,free[i]),festivo:(hol[iso(D)]||[]).map(x=>x.n)})),
+ da=items.map(r=>({id:r.g.id,titolo:r.g.title,sessioni:want(r,hz),minuti_per_sessione:r.g.est||30,priorita:r.g.pr||2,tipo:r.f=='o'?'progetto':r.f=='w'?'settimanale':'mensile',scadenza:r.g.dl||'',fattibilita_pct:r.feas,sessioni_mancate:r.g.ms||0,piu_sessioni_al_giorno:r.f=='o'})),
+ d=await gem('Pianifica: '+JSON.stringify({oggi:iso(T0),giorni:days,da_pianificare:da,profilo:profAI()}),[],PSYS),out={},nf={};
+ for(const r of items.slice().sort(byImp)){const g=r.g,w=want(r,hz),E=g.est||30,rec=(d.piano||[]).find(x=>x.id==g.id),ok=[];
+  for(const k of(rec&&Array.isArray(rec.date)?rec.date:[])){const i=hz.findIndex(D=>iso(D)==k);if(i<0||ok.length>=w||free[i]<E||(r.f!='o'&&ok.includes(k))||(g.dl&&k>g.dl))continue;free[i]-=E;ok.push(k)}
+  out[g.id]=place(r,hz,free,ok,w);if(out[g.id].length<w)nf[g.id]=((d.non_fattibili||[]).find(x=>x.id==g.id)||{}).motivo||noRoom(w-out[g.id].length)}
+ return{out,nf}}
+let RT=0;
+async function rollover(force){const k=iso(today());if(!force&&(S.rd==k||NT().roll===false))return;
+ if(!force&&fbCfg()&&FBU&&!(GREADY&&MREADY)&&++RT<12){setTimeout(()=>rollover(),2000);return}
+ const L=calcL(),hz=hzDays(),todo=[];let missed=0;
+ for(const r of L){const g=r.g;if(r.f=='d'||isEv(g))continue;
+  const past=(g.pl||[]).filter(d=>d<k),fut=(g.pl||[]).filter(d=>d>=k),miss=past.filter(d=>!((g.log||{})[d]>0)).length;
+  if(miss){g.ms=(g.ms||0)+miss;missed+=miss}
+  if(!r.need){delete g.pl;delete g.nf;continue}
+  const w=want(r,hz);g.pl=fut.length>w?fut.slice(0,w):fut;if(g.pl.length<w||miss)todo.push(r)}
+ let res=null,src='';
+ if(todo.length){if(NT().gem!==false&&localStorage.getItem(GK)){try{res=await planGem(todo,hz);src='Gemini'}catch(e){res=null}}
+  if(!res){res=planLocal(todo,hz);src=T2('calcolo locale','local calculation')}
+  for(const r of todo){const g=r.g;g.pl=res.out[g.id]||[];if(res.nf[g.id])g.nf=res.nf[g.id];else delete g.nf}}
+ for(const r of L){const g=r.g;if(r.f!='d'&&r.need&&!isEv(g)&&!g.nf&&((r.f=='o'&&r.dd!=null&&r.dd<0)||r.feas<25))g.nf=r.dd<0?T2('scadenza superata','deadline passed'):T2('fattibilità molto bassa (','very low feasibility (')+r.feas+'%)'}
+ S.rd=k;save();render();
+ if(todo.length||missed){const nf=S.goals.filter(g=>g.nf).length;toast(T2(`Ripianificate ${todo.length} attività (${src}${nf?'; '+nf+' da valutare':''}).`,`Rescheduled ${todo.length} activities (${src}${nf?'; '+nf+' to review':''}).`))}}
+const nfList=()=>{const a=S.goals.filter(g=>g.nf);return a.length?`<h2 style="margin-top:12px">${T2('Da valutare (non fattibili)','To review (not feasible)')}</h2>`+a.map(g=>`<div style="margin:6px 0">⚠ <b>${esc(g.title)}</b><div class=mu>${esc(g.nf)}</div></div>`).join('')+`<p class=mu>${T2('Riduci il target, sposta la scadenza o elimina l’attività.','Lower the target, move the deadline or delete the activity.')}</p>`:''};
+/* impostazioni notifiche */
+function ntUi(){const n=NT(),P=$id('nt_p');if(!P)return;const p='Notification' in window?Notification.permission:'x';
+ P.textContent=T2('Permesso del dispositivo: ','Device permission: ')+({granted:T2('concesso','granted'),denied:T2('negato (si cambia dalle impostazioni del browser)','denied (change it in the browser settings)'),default:T2('da richiedere','not asked yet'),x:T2('non supportato','not supported')})[p];
+ const s=sunTimes(today(),n.lat,n.lon);$id('nt_loc').textContent=n.lat!=null?T2('Posizione impostata','Location set')+` (${n.lat}, ${n.lon})`+(s?` · ${T2('alba','sunrise')} ${hhm(s.sr)} · ${T2('tramonto','sunset')} ${hhm(s.ss)}`:''):T2('Posizione non impostata: uso 07:00 e 18:00.','Location not set: using 07:00 and 18:00.')}
+function ntInit(){const n=NT();$id('nt_mk').value=n.m.k;$id('nt_ek').value=n.e.k;ntUi()}
+function ntHtml(){const n=NT(),h='<h3 style="margin-top:14px">',b='<div class=bt style="justify-content:flex-start;margin-top:8px">';
+ return `<label class=ck2><input type=checkbox id=nt_on ${n.on?'checked':''}> ${T2('Attiva le notifiche','Enable notifications')}</label><p class=mu id=nt_p></p>${b}<button id=nt_perm>${T2('Consenti notifiche','Allow notifications')}</button><button id=nt_test>${T2('Mostra anteprima','Show preview')}</button></div>
+${h}${T2('Inizio giornata','Start of day')}</h3><div class=r2><label>${T2('Quando','When')}<select id=nt_mk><option value=sun>${T2('All’alba','At sunrise')}<option value=fix>${T2('A un’ora fissa','At a fixed time')}</select></label><label>${T2('Ora fissa','Fixed time')}<input type=time id=nt_mt value="${n.m.t}"></label></div>
+${h}${T2('Fine giornata','End of day')}</h3><div class=r2><label>${T2('Quando','When')}<select id=nt_ek><option value=sun>${T2('Al tramonto','At sunset')}<option value=fix>${T2('A un’ora fissa','At a fixed time')}</select></label><label>${T2('Ora fissa','Fixed time')}<input type=time id=nt_et value="${n.e.t}"></label></div>
+<label class=ck2 style="margin-top:12px"><input type=checkbox id=nt_l ${n.l.on?'checked':''}> ${T2('Promemoria serale alle','Evening reminder at')} <input type=time id=nt_lt value="${n.l.t}" style="width:auto"></label>
+${h}${T2('Posizione per alba e tramonto','Location for sunrise and sunset')}</h3><p class=mu id=nt_loc></p>${b}<button id=nt_geo>${T2('Usa la posizione del dispositivo','Use device location')}</button><button id=nt_res>${T2('Cerca dalla residenza del profilo','Find from profile residence')}</button></div>
+${h}${T2('Attività non completate','Unfinished activities')}</h3><label class=ck2><input type=checkbox id=nt_roll ${n.roll?'checked':''}> ${T2('Riprogramma ogni giorno quelle non completate','Reschedule unfinished ones every day')}</label><label class=ck2><input type=checkbox id=nt_gem ${n.gem?'checked':''}> ${T2('Fai decidere i giorni a Gemini (serve la chiave API, altrimenti calcolo locale)','Let Gemini choose the days (needs the API key, otherwise a local calculation is used)')}</label>${b}<button id=nt_now>${T2('Ripianifica adesso','Reschedule now')}</button></div>
+<p class=mu>${T2('Le notifiche partono mentre l’app è aperta o in esecuzione in background. Per riceverle anche ad app chiusa serve un passaggio in più: vedi la Guida.','Notifications fire while the app is open or running in the background. To get them while the app is closed an extra step is needed: see the Guide.')}</p>`}
+stb.addEventListener('change',e=>{const t=e.target,id=t.id||'';if(id.slice(0,3)!='nt_')return;const n=NT(),set=o=>{S.nt={...n,...o};save();ntUi()};
+ if(id=='nt_on'){set({on:t.checked});if(t.checked&&'Notification' in window&&Notification.permission=='default')Notification.requestPermission().then(ntUi)}
+ else if(id=='nt_mk')set({m:{...n.m,k:t.value}});else if(id=='nt_ek')set({e:{...n.e,k:t.value}});
+ else if(id=='nt_mt'){set({m:{k:'fix',t:t.value||n.m.t}});$id('nt_mk').value='fix'}
+ else if(id=='nt_et'){set({e:{k:'fix',t:t.value||n.e.t}});$id('nt_ek').value='fix'}
+ else if(id=='nt_l')set({l:{...n.l,on:t.checked}});else if(id=='nt_lt')set({l:{...n.l,t:t.value||n.l.t}});
+ else if(id=='nt_roll')set({roll:t.checked});else if(id=='nt_gem')set({gem:t.checked})});
+stb.addEventListener('click',async e=>{const b=e.target.closest('button'),id=b&&b.id||'';if(id.slice(0,3)!='nt_')return;
+ if(id=='nt_perm'){if('Notification' in window)await Notification.requestPermission();ntUi()}
+ else if(id=='nt_test')fire('m',true);
+ else if(id=='nt_geo'||id=='nt_res'){try{const[a,c]=await(id=='nt_geo'?ntGeo():ntRes());S.nt={...NT(),lat:+a.toFixed(4),lon:+c.toFixed(4)};save();ntUi()}catch(x){$id('nt_loc').textContent=T2('Posizione non disponibile: ','Location unavailable: ')+x.message}}
+ else if(id=='nt_now'){b.disabled=true;await rollover(true);b.disabled=false}});
+
+async function instDiag(){const o=[],ok=t=>o.push(['✅',t]),no=(t,h)=>o.push(['❌',t+(h?' — '+h:'')]),wa=(t,h)=>o.push(['⚠️',t+(h?' — '+h:'')]),ua=navigator.userAgent;
+ if(location.protocol=='https:'||location.hostname=='localhost')ok(T2('Indirizzo sicuro (https)','Secure address (https)'));
+ else no(T2('Indirizzo non sicuro ('+location.protocol+'//)','Insecure address ('+location.protocol+'//)'),T2('l’installazione richiede https, per esempio GitHub Pages: non funziona aprendo il file dal telefono o dal PC','installing needs https, for example GitHub Pages: it does not work when opening the file from the phone or PC'));
+ try{const l=document.querySelector('link[rel=manifest]');if(!l)throw Error(T2('collegamento al manifest assente nella pagina','manifest link missing from the page'));
+  const r=await fetch(l.href,{cache:'no-store'});if(!r.ok)throw Error(T2(`manifest non trovato (errore ${r.status}): carica manifest.json nel repository`,`manifest not found (error ${r.status}): upload manifest.json to the repository`));
+  const m=await r.json(),ic=m.icons||[],has=n=>ic.some(i=>(i.sizes||'').split(' ').some(z=>parseInt(z)>=n));
+  if((m.name||m.short_name)&&m.start_url&&['standalone','fullscreen','minimal-ui'].includes(m.display))ok(T2('Manifest valido','Valid manifest'));else no(T2('Manifest incompleto','Incomplete manifest'),'name, start_url, display');
+  if(has(192)&&has(512))ok(T2('Icone 192 e 512 dichiarate','192 and 512 icons declared'));else no(T2('Icone 192 o 512 mancanti nel manifest','192 or 512 icons missing in the manifest'));
+  const bad=[];for(const i of ic){try{const x=await fetch(new URL(i.src,l.href),{cache:'no-store'});if(!x.ok)bad.push(i.src)}catch(e){bad.push(i.src)}}
+  if(bad.length)no(T2('File icona non trovati: ','Icon files not found: ')+bad.join(', '),T2('carica le icone nel repository','upload the icons to the repository'));else ok(T2('File delle icone raggiungibili','Icon files reachable'))}
+ catch(e){no(e.message)}
+ if(!('serviceWorker' in navigator))no(T2('Service worker non supportato da questo browser','Service workers are not supported by this browser'));
+ else{const r=await navigator.serviceWorker.getRegistration();
+  if(!r)no(T2('Service worker non registrato','Service worker not registered'),T2('carica sw.js nel repository e ricarica la pagina','upload sw.js to the repository and reload the page'));
+  else if(r.active)ok(T2('Service worker attivo','Service worker active'));else wa(T2('Service worker in installazione','Service worker installing'),T2('aspetta qualche secondo e ricarica','wait a few seconds and reload'))}
+ if((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone)ok(T2('Stai già usando l’app installata','You are already using the installed app'));
+ else if(IP)ok(T2('Il browser segnala che l’app è installabile','The browser reports that the app is installable'));
+ else wa(T2('Il browser non ha ancora segnalato che è installabile','The browser has not yet reported it as installable'),T2('ricarica la pagina, poi prova dal menu del browser: «Installa app» (Chrome, Edge) o «Aggiungi a schermata Home»','reload the page, then try the browser menu: “Install app” (Chrome, Edge) or “Add to Home screen”'));
+ if(/Firefox/.test(ua)&&!/Seamonkey/.test(ua))wa(T2('Stai usando Firefox','You are using Firefox'),T2('su Android installa con meno funzioni, su PC l’installazione è più recente: per il risultato migliore usa Chrome o Edge','on Android it installs with fewer features, on PC installing is more recent: for the best result use Chrome or Edge'));
+ if(/iPhone|iPad|iPod/.test(ua))wa(T2('Stai usando un dispositivo Apple','You are using an Apple device'),T2('apri la pagina in Safari e usa Condividi → Aggiungi alla schermata Home','open the page in Safari and use Share → Add to Home Screen'));
+ return o}
+stb.addEventListener('click',async e=>{const b=e.target.closest('#ins_b');if(!b)return;b.disabled=true;const out=$id('ins_o');out.textContent='…';
+ try{out.innerHTML=(await instDiag()).map(([i,t])=>`<div style="margin:5px 0;font-size:14px">${i} ${esc(t)}</div>`).join('')}catch(x){out.textContent=x.message}b.disabled=false});
+/* guida */
+const GUIDE={it:`<p class=mu>Come funziona l’app e cosa puoi farci.</p>
+<details open><summary>Le basi</summary><p>Scrivi nella barra in alto e premi Invio per aggiungere in un attimo: <code>Studiare C++ #Tesi +uni /s x3 @30/10 ~45 !1</code>. Vale così: #progetto, +parola chiave, /g giornaliero, /s settimanale, /m mensile, /p progetto o lungo termine, /e evento, /i impegno, x3 target, @30/10 scadenza, ~45 minuti per volta, !1 priorità alta (!2 media, !3 bassa). «+ Nuovo» apre il modulo completo; il tasto / apre la ricerca.</p></details>
+<details><summary>Obiettivi, impegni ed eventi</summary><p>Un obiettivo si porta avanti nel tempo e ha un target; un impegno è un dovere con data e ora; un evento è un appuntamento fisso e non pesa sul carico. Ognuno ha descrizione, progetto, parole chiave, priorità, scadenza, tempo per volta e allegati.</p></details>
+<details><summary>Segnare i progressi</summary><p>Il cerchio a sinistra aggiunge +1 e si riempie fino al target. Con ⏱ registri inizio e fine reali: se lo scostamento è grande ti chiede il motivo. ↶ annulla l’ultimo, e i tre puntini ⋯ aprono il menu con Modifica ed Elimina (l’eliminazione si può annullare per qualche secondo).</p></details>
+<details><summary>Streak, fattibilità e carico</summary><p>🔥 conta quanti giorni, settimane o mesi di fila hai centrato il target. La percentuale di fattibilità unisce il ritmo richiesto, la tua affidabilità recente e il carico totale rispetto ai minuti disponibili al giorno: sotto il 40% l’obiettivo è a rischio.</p></details>
+<details><summary>Agenda di oggi e priorità</summary><p>La sezione «Oggi» è la tua agenda: giornalieri, eventi e impegni di oggi, attività pianificate o in scadenza, in ordine di importanza. L’importanza dipende dalla priorità, dalla scadenza, dall’ora fissa, dal rischio di non farcela e dalle streak da proteggere.</p></details>
+<details><summary>Notifiche e ripianificazione</summary><p>In Impostazioni → Notifiche scegli quando ricevere l’agenda del mattino (all’alba o a un’ora fissa), il riepilogo di fine giornata (al tramonto o a un’ora fissa) e il promemoria serale (alle 22:00 di default). Ogni giorno le attività non completate vengono ripianificate nei giorni successivi: i giorni li decide Gemini dopo aver analizzato carico, scadenze, priorità e festività (senza chiave usa un calcolo locale). Se non c’è spazio l’attività è segnalata «da valutare» e compare nella revisione di fine settimana.</p><p>Le notifiche partono mentre l’app è aperta o in esecuzione in background, e l’app le recupera se la apri entro qualche ora. Per riceverle ad app chiusa serve un servizio esterno che invii notifiche push: è un passaggio opzionale da configurare a parte.</p></details>
+<details><summary>Revisione settimanale</summary><p>Nel fine settimana l’app propone la revisione: com’è andata, tempo reale contro previsto con strategie, attività da valutare e target della settimana dopo.</p></details>
+<details><summary>Calendario, anni e festività</summary><p>Il calendario mostra il mese con oggi evidenziato, scadenze, eventi e festività; dal menu a sinistra scegli l’anno. In Impostazioni → Festività importi le festività nazionali di uno o più paesi.</p></details>
+<details><summary>Coach Gemini</summary><p>Scrivi o detta una richiesta: può creare piani dal lungo al breve termine, modificare qualsiasi voce e proporre eliminazioni. Tu scegli cosa applicare. Può usare gli allegati, il profilo (se consentito) e le festività. «Copia contesto per un’altra AI» prepara il testo per altri assistenti.</p></details>
+<details><summary>Sincronizzazione e backup</summary><p>Con ☁ Accedi i dati si allineano tra i tuoi dispositivi tramite il tuo account Google; gli allegati restano sul dispositivo. In Impostazioni → Dati esporti e importi un backup.</p></details>
+<details><summary>Installazione e aggiornamenti</summary><p>Dal browser puoi installare l’app su Android e Windows. Quando c’è una versione nuova compare «Nuova versione disponibile»: premi Aggiorna.</p></details>
+<details><summary>Privacy</summary><p>I dati stanno sul dispositivo e, con l’accesso Google, nel tuo progetto Firebase. Al coach e al pianificatore arrivano solo le informazioni necessarie, e solo quando li usi.</p></details>
+<details><summary>Problemi con l’installazione?</summary><p>Per installare l’app va aperta da un indirizzo https (per esempio GitHub Pages), non dal file salvato sul telefono o sul PC. Premi il pulsante: l’app controlla indirizzo, manifest, icone e service worker e ti dice cosa manca.</p><div class=bt style="justify-content:flex-start"><button id=ins_b>Controlla ora</button></div><div id=ins_o></div></details>`,
+en:`<p class=mu>How the app works and what you can do with it.</p>
+<details open><summary>The basics</summary><p>Type in the top bar and press Enter to add quickly: <code>Study C++ #Thesis +uni /s x3 @30/10 ~45 !1</code>. It works like this: #project, +keyword, /g daily, /s weekly, /m monthly, /p project or long term, /e event, /i commitment, x3 target, @30/10 deadline, ~45 minutes per session, !1 high priority (!2 medium, !3 low). «+ New» opens the full form; the / key opens search.</p></details>
+<details><summary>Goals, commitments and events</summary><p>A goal moves forward over time and has a target; a commitment is a duty with a date and time; an event is a fixed appointment and does not weigh on the load. Each one has a description, project, keywords, priority, deadline, time per session and attachments.</p></details>
+<details><summary>Tracking progress</summary><p>The circle on the left adds +1 and fills up to the target. With ⏱ you log the actual start and end: if the gap is large it asks why. ↶ undoes the last one, and the three dots ⋯ open the menu with Edit and Delete (a deletion can be undone for a few seconds).</p></details>
+<details><summary>Streaks, feasibility and load</summary><p>🔥 counts how many days, weeks or months in a row you hit the target. The feasibility percentage combines the required pace, your recent reliability and the total load against your available minutes per day: below 40% the goal is at risk.</p></details>
+<details><summary>Today’s agenda and priorities</summary><p>The «Today» section is your agenda: today’s daily goals, events and commitments, plus planned or due activities, in order of importance. Importance depends on priority, deadline, fixed time, risk of falling short and streaks to protect.</p></details>
+<details><summary>Notifications and rescheduling</summary><p>In Settings → Notifications choose when to get the morning agenda (at sunrise or at a fixed time), the end-of-day summary (at sunset or at a fixed time) and the evening reminder (22:00 by default). Every day, unfinished activities are rescheduled for the following days: Gemini chooses the days after analysing load, deadlines, priorities and holidays (without a key a local calculation is used). If there is no room the activity is flagged «to review» and shows up in the weekly review.</p><p>Notifications fire while the app is open or running in the background, and the app catches up if you open it within a few hours. To get them while the app is closed an external service that sends push notifications is needed: it is an optional step to set up separately.</p></details>
+<details><summary>Weekly review</summary><p>At the weekend the app suggests the review: how it went, actual vs planned time with strategies, activities to review and next week’s targets.</p></details>
+<details><summary>Calendar, years and holidays</summary><p>The calendar shows the month with today highlighted, deadlines, events and holidays; pick the year from the left menu. In Settings → Holidays you import the national holidays of one or more countries.</p></details>
+<details><summary>Gemini coach</summary><p>Type or dictate a request: it can build plans from long to short term, edit any item and suggest deletions. You choose what to apply. It can use attachments, the profile (if allowed) and holidays. «Copy context for another AI» prepares the text for other assistants.</p></details>
+<details><summary>Sync and backup</summary><p>With ☁ Sign in your data stays aligned across your devices through your Google account; attachments stay on the device. In Settings → Data you export and import a backup.</p></details>
+<details><summary>Installation and updates</summary><p>You can install the app on Android and Windows from the browser. When there is a new version «New version available» appears: press Update.</p></details>
+<details><summary>Privacy</summary><p>Data lives on the device and, with Google sign-in, in your own Firebase project. The coach and the planner only receive the information they need, and only when you use them.</p></details>
+<details><summary>Trouble installing?</summary><p>To install the app it must be opened from an https address (for example GitHub Pages), not from the file saved on the phone or PC. Press the button: the app checks the address, manifest, icons and service worker and tells you what is missing.</p><div class=bt style="justify-content:flex-start"><button id=ins_b>Check now</button></div><div id=ins_o></div></details>`};
 
 const IC={ob:'🎯',im:'📌',ev:'📅'},TN={ob:'obiettivo',im:'impegno',ev:'evento'},TC={ob:'var(--ac)',im:'var(--wa)',ev:'var(--ok)'},
 MS=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
@@ -520,15 +699,15 @@ tf.onsubmit=e=>{e.preventDefault();const{m,bad}=tu();if(!(m>0))return;if(bad&&!t
  if(t_c.checked){const k=t_d.value;TG.log[k]=(TG.log[k]||0)+1;if(TG.f=='o'&&tot(TG)>=TG.t)TG.fin=TG.fin||k}
  tq.close();save();render()};
 const GK='dash_gem_key',DM='gemini-2.5-flash',FL={g:'giornaliero',s:'settimanale',m:'mensile',p:'lungo termine o progetto'},
-SYS='Sei il coach di una dashboard personale con obiettivi, impegni ed eventi. Ricevi la richiesta dell’utente e l’elenco COMPLETO degli elementi esistenti: puoi aggiungerne di nuovi, modificare qualsiasi campo di quelli esistenti (indicando il loro id) o proporne l’eliminazione. Rendi gli elementi specifici, misurabili e realistici rispetto ai minuti disponibili, alle streak, alla fattibilità e ai tempi reali indicati. Rispondi SOLO con JSON: {"sintesi":"max 2 frasi","strategie":["max 3, solo se servono"],"elementi":[{"id":"solo per modificare o eliminare","azione":"nuovo|modifica|elimina","tipo":"ob|im|ev","titolo":"","progetto":"","freq":"g|s|m|p","target":1,"scadenza":"YYYY-MM-DD, vuoto, o nessuna per rimuoverla","ora":"HH:MM o vuoto","giorni":[1,2,3],"minuti":30,"lt":"titolo del lungo termine collegato o vuoto","descrizione":"max 160 caratteri","parole":["uni"],"perche":"max 100 caratteri"}]}. In modifica indica solo i campi che cambiano. tipo: ob=obiettivo, im=impegno, ev=evento (un evento ha freq p e come scadenza la sua data). freq: g=giornaliero, s=settimanale (target=volte a settimana), m=mensile, p=lungo termine, progetto o evento con scadenza (target=unità totali). giorni: giorni attivi di un elemento giornaliero, 1=lunedì ... 7=domenica. Un lungo termine è un elemento p: collega ad esso gli elementi brevi con il campo lt. minuti = tempo che occupa in una giornata per volta. Assegna 1-3 parole chiave brevi in minuscolo (per esempio uni, studio, lavoro, palestra, personale, hobby). Se un elemento ha il campo "tempo" (tempo reale registrato con i motivi), valuta lo scostamento dalla stima e le giustificazioni. Se sono allegati dei file di un elemento (indicati con il suo id), usali per capire scopo, vincoli, scadenze e carico di lavoro, e adatta di conseguenza tappe, minuti, frequenze e scadenze. Massimo 12 elementi. Non superare i minuti disponibili al giorno. Scrivi in italiano.';
+SYS='Sei il coach di una dashboard personale con obiettivi, impegni ed eventi. Ricevi la richiesta dell’utente e l’elenco COMPLETO degli elementi esistenti: puoi aggiungerne di nuovi, modificare qualsiasi campo di quelli esistenti (indicando il loro id) o proporne l’eliminazione. Rendi gli elementi specifici, misurabili e realistici rispetto ai minuti disponibili, alle streak, alla fattibilità e ai tempi reali indicati. Rispondi SOLO con JSON: {"sintesi":"max 2 frasi","strategie":["max 3, solo se servono"],"elementi":[{"id":"solo per modificare o eliminare","azione":"nuovo|modifica|elimina","tipo":"ob|im|ev","titolo":"","progetto":"","freq":"g|s|m|p","target":1,"scadenza":"YYYY-MM-DD, vuoto, o nessuna per rimuoverla","ora":"HH:MM o vuoto","giorni":[1,2,3],"minuti":30,"priorita":2,"lt":"titolo del lungo termine collegato o vuoto","descrizione":"max 160 caratteri","parole":["uni"],"perche":"max 100 caratteri"}]}. In modifica indica solo i campi che cambiano. tipo: ob=obiettivo, im=impegno, ev=evento (un evento ha freq p e come scadenza la sua data). freq: g=giornaliero, s=settimanale (target=volte a settimana), m=mensile, p=lungo termine, progetto o evento con scadenza (target=unità totali). giorni: giorni attivi di un elemento giornaliero, 1=lunedì ... 7=domenica. Un lungo termine è un elemento p: collega ad esso gli elementi brevi con il campo lt. minuti = tempo che occupa in una giornata per volta. priorita: 1=alta, 2=media, 3=bassa. Assegna 1-3 parole chiave brevi in minuscolo (per esempio uni, studio, lavoro, palestra, personale, hobby). Se un elemento ha il campo "tempo" (tempo reale registrato con i motivi), valuta lo scostamento dalla stima e le giustificazioni. Se sono allegati dei file di un elemento (indicati con il suo id), usali per capire scopo, vincoli, scadenze e carico di lavoro, e adatta di conseguenza tappe, minuti, frequenze e scadenze. Massimo 12 elementi. Non superare i minuti disponibili al giorno. Scrivi in italiano.';
 let GP=[];
 const clean=o=>Object.fromEntries(Object.entries(o).filter(([,x])=>x!=null&&x!==''&&!Number.isNaN(x))),
 ctx=()=>{const T=today(),cap=S.cap||240,L=S.goals.filter(g=>live(g,T)).map(g=>info(g,T)),ld=L.reduce((a,r)=>a+r.m,0),sc=Math.min(1,cap/ld);
- return JSON.stringify({oggi:iso(T),minuti_disponibili_giorno:cap,carico_minuti_giorno:Math.round(ld),profilo:profAI(),festivita_prossime:holNext(),elementi:S.goals.map(g=>{const r=L.find(x=>x.g==g),o={id:g.id,tipo:g.ty||'ob',titolo:g.title,progetto:g.p||'',parole:g.k||[],freq:{d:'g',w:'s',m:'m',o:'p'}[g.f],target:g.t,scadenza:g.dl||'',ora:g.hr||'',giorni:g.days?g.days.map((x,i)=>x?i+1:0).filter(Boolean):[],minuti:g.est||30,lt:g.lt||'',descrizione:g.note||'',attivo:!!r,file:(g.fl||[]).map(f=>f.name)};
+ return JSON.stringify({oggi:iso(T),minuti_disponibili_giorno:cap,carico_minuti_giorno:Math.round(ld),profilo:profAI(),festivita_prossime:holNext(),elementi:S.goals.map(g=>{const r=L.find(x=>x.g==g),o={id:g.id,tipo:g.ty||'ob',titolo:g.title,progetto:g.p||'',parole:g.k||[],freq:{d:'g',w:'s',m:'m',o:'p'}[g.f],target:g.t,scadenza:g.dl||'',ora:g.hr||'',giorni:g.days?g.days.map((x,i)=>x?i+1:0).filter(Boolean):[],minuti:g.est||30,lt:g.lt||'',descrizione:g.note||'',attivo:!!r,file:(g.fl||[]).map(f=>f.name),priorita:g.pr||2,pianificato:g.pl||[],non_fattibile:g.nf||''};
   if(r)Object.assign(o,{fatto:r.done,streak:r.cur,record:r.best,affidabilita_pct:Math.round(r.h*100),fattibilita_pct:r.need?Math.round(100*r.pace*(.5+.5*r.h)*sc):100,tempo:(a=>a&&{sessioni:a.n,medio_min:a.avg,scostamento_pct:a.dv,inizio_tipico:a.st,motivi:a.j})(an(g,T))});return o})})};
-async function gem(p,x=[]){const k=localStorage.getItem(GK);if(!k)throw Error('Inserisci la chiave API nella sezione in alto.');
+async function gem(p,x=[],sy=SYS){const k=localStorage.getItem(GK);if(!k)throw Error('Inserisci la chiave API nella sezione in alto.');
  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(S.gm||DM)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},
-  body:JSON.stringify({systemInstruction:{parts:[{text:SYS+(S.lang=='en'?' IMPORTANT: ignore the instruction about Italian and write all text fields in English.':'')}]},contents:[{role:'user',parts:[{text:p},...x]}],generationConfig:{responseMimeType:'application/json',temperature:.4}})}),
+  body:JSON.stringify({systemInstruction:{parts:[{text:sy+(S.lang=='en'?' IMPORTANT: ignore the instruction about Italian and write all text fields in English.':'')}]},contents:[{role:'user',parts:[{text:p},...x]}],generationConfig:{responseMimeType:'application/json',temperature:.4}})}),
  j=await r.json();if(!r.ok)throw Error(j.error?.message||'Errore '+r.status);
  return JSON.parse((j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('').replace(/```json|```/g,''))}
 function gc(m){gk.value=localStorage.getItem(GK)||'';gm.value=S.gm||DM;gs.open=!gk.value;ks();go.innerHTML='';ga.hidden=true;gd.showModal();if(m=='rev'&&gk.value)gr('rev')}
@@ -542,7 +721,7 @@ async function gr(m){const k=gk.value.trim();if(k)localStorage.setItem(GK,k);S.g
 ga.onclick=()=>{go.querySelectorAll('input:checked').forEach(c=>{const o=GP[c.dataset.i],g=o.id&&S.goals.find(x=>x.id==o.id);
  if(o.azione=='elimina'){if(g){(g.fl||[]).forEach(f=>fdel(f.id).catch(()=>0));S.goals=S.goals.filter(x=>x!=g)}return}
  const n=x=>+x>0?Math.round(+x):undefined,kk=[].concat(o.parole||[]).map(x=>String(x).toLowerCase().replace(/[^\p{L}\d_-]/gu,'')).filter(Boolean).slice(0,5),
- v=clean({title:String(o.titolo||'').slice(0,120),p:o.progetto,ty:['ob','im','ev'].includes(o.tipo)?o.tipo:undefined,f:{g:'d',s:'w',m:'m',p:'o'}[o.freq],t:n(o.target),dl:/^\d{4}-\d{2}-\d{2}$/.test(o.scadenza)?o.scadenza:undefined,hr:/^\d{2}:\d{2}$/.test(o.ora)?o.ora:undefined,est:n(o.minuti),lt:o.lt,note:o.descrizione||o.note,k:kk.length?kk:undefined,days:Array.isArray(o.giorni)&&o.giorni.length?[1,2,3,4,5,6,7].map(d=>o.giorni.map(Number).includes(d)):undefined});
+ v=clean({title:String(o.titolo||'').slice(0,120),p:o.progetto,ty:['ob','im','ev'].includes(o.tipo)?o.tipo:undefined,f:{g:'d',s:'w',m:'m',p:'o'}[o.freq],t:n(o.target),dl:/^\d{4}-\d{2}-\d{2}$/.test(o.scadenza)?o.scadenza:undefined,hr:/^\d{2}:\d{2}$/.test(o.ora)?o.ora:undefined,est:n(o.minuti),pr:[1,2,3].includes(+o.priorita)?+o.priorita:undefined,lt:o.lt,note:o.descrizione||o.note,k:kk.length?kk:undefined,days:Array.isArray(o.giorni)&&o.giorni.length?[1,2,3,4,5,6,7].map(d=>o.giorni.map(Number).includes(d)):undefined});
  if(g){Object.assign(g,v);if(o.scadenza=='nessuna')g.dl=''}else if(v.title)S.goals.push({id:uid(),c:iso(today()),log:{},f:'o',t:1,est:30,...v})});
  gd.close();save();render()};
 bG.onclick=()=>gc();gp.onclick=()=>gr('plan');gv.onclick=()=>gr('rev');
@@ -550,17 +729,17 @@ const ks=()=>{let k='';try{k=localStorage.getItem(GK)||''}catch(e){}gks.textCont
 gk.oninput=()=>{const v=gk.value.trim();try{v?localStorage.setItem(GK,v):localStorage.removeItem(GK)}catch(e){gks.textContent='Il browser non permette di salvare la chiave';return}ks();navigator.storage?.persist?.()};
 gx.onclick=()=>{gk.value='';try{localStorage.removeItem(GK)}catch(e){}ks()};
 
-const APP_VER='2026-10-29.2';let LCK=0,SNZ=0;
+const APP_VER='2026-11-04.1';let LCK=0,SNZ=0;
 ver.textContent='Versione '+APP_VER;
 async function chkUpd(f){if(!/^https?:$/.test(location.protocol)||(!f&&Date.now()-LCK<6e5))return;LCK=Date.now();
  try{const r=await fetch('index.html',{cache:'no-store'});if(!r.ok)return;const m=(await r.text()).match(new RegExp('APP_VER'+"='([^']+)'"));
   if(m&&m[1]!==APP_VER&&Date.now()>SNZ)upd.hidden=false}catch(e){}}
 updgo.onclick=()=>location.reload();updno.onclick=()=>{upd.hidden=true;SNZ=Date.now()+18e5};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)chkUpd()});setTimeout(()=>chkUpd(),3000);setInterval(()=>chkUpd(),18e5);
-if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(()=>0);navigator.storage?.persist?.()}
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){try{navigator.serviceWorker.register('sw.js').catch(()=>0)}catch(e){}navigator.storage?.persist?.()}
 let IP=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();IP=e;bA.hidden=false});
 bA.onclick=async()=>{if(!IP)return;IP.prompt();await IP.userChoice;IP=null;bA.hidden=true};
 addEventListener('appinstalled',()=>{bA.hidden=true});
-onfocus=render;setInterval(()=>{if(+today()!=+T0)render();if(FBU&&ST.startsWith('err'))pushAll()},60000);render();applyLang();if(location.hash=='#nuovo')ed();if(location.hash=='#coach')gc();
+onfocus=render;setInterval(()=>{if(+today()!=+T0)render();if(FBU&&ST.startsWith('err'))pushAll()},60000);render();applyLang();setTimeout(()=>{ntTick();rollover()},1500);setInterval(ntTick,3e4);document.addEventListener('visibilitychange',()=>{if(!document.hidden){ntTick();rollover()}});if(location.hash=='#nuovo')ed();if(location.hash=='#coach')gc();
 if(fbCfg())fbInit().catch(e=>{ST='err:'+e.message;sui()});
 </script></body></html>
